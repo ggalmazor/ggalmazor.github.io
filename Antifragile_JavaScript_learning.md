@@ -1,4 +1,4 @@
-# Anti-fragile learning
+# Anti-fragile JavaScript learning
 
 At BuntPlanet we focus our learning strategy following the "anti-fragile" concept. Regarding web apps, you're going to write tons of JavaScript, therefore, you could think about this on these terms:
 
@@ -8,3 +8,5 @@ At BuntPlanet we focus our learning strategy following the "anti-fragile" concep
   1. Your framework/libraries of choice
 
 You can use this list to guide your learning process. Just take into account that the lower items become more relevant as the time goes by (that knowledge is more 'anti-fragile') and the higher items are more susceptible to be replaced by new things.
+
+This is a [good post about this](https://medium.com/@sapegin/what-to-learn-in-2017-if-youre-a-frontend-developer-b6cfef46effd#.ri22nu6ep)
