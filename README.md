@@ -1,0 +1,2 @@
+ - [Anti-fragile learning]()
+ - [Cardinality and object creation strategies in JavaScript]()
