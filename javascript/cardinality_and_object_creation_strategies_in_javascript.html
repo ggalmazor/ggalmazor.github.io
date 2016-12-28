@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Rumiations - Cardinality and object creation strategies in JavaScript</title>
+  <meta name="description" content="Rumiations of @ggalmazor about Cardinality and object creation strategies in JavaScript">
+
+  <link rel="stylesheet" href="../assets/github-markdown.css">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+
+  <style>
+    .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+    }
+</style>
+
+</head>
+
+<body>
+	<article class="markdown-body">
+		<p><a href="../">&larr; go back...</a></p>
+
+	    <h1>Cardinality and object creation strategies in JavaScript</h1>
+
+	    <p><strong>TL;DR</strong>: Use literal object notation for ad-hoc, all public objects. Use a factory function for singleton objects that need private state. Use prototypical inheritance for model objects or types that will need lots of instances.</p>
+
+		<p>When you need a new object in JavaScript you can choose from many options. In this article, I'll try to make sense of all this and I'll propose criteria to choose one option.</p>
+
+	    <h2 id="index">Index</h2>
+
+		<ul>
+	    	<li><a href="#object_constructor">Object type constructor</a></li>
+	    	<li><a href="#literal_notation">Literal object notation</a></li>
+	    	<li><a href="#object_create">Object.create function</a></li>
+	    </ul>
+
+
+		<p>Let's check what can we do to create new objects in JavaScript:</p>
+
+		<h2 id="object_constructor"><code>Object</code> type constructor <a href="#index">&uarr; up</a></h2>
+
+		<p>JavaScript has an <code>Object</code> type and you can create new instances of this type using its constructor function like so:</p>
+
+		<p><pre><code>const myCar = new Object();</code></pre></p>
+
+		<p>Then you can add properties to <code>myCar</code> like so:</p>
+
+		<p><pre><code>myCar.make = "Ford";
+myCar.model = "Mustang";
+myCar.year = 1969;</code></pre></p>
+
+		<p>More info on this <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Objects_and_properties">here</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">here</a>.</p>
+
+		<p>You You can do amazing stuff:</p>
+
+		<p><pre><code>const something = new Object(33);
+something.value = 44;
+
+something ==  33  // this is true
+something === 333 // this is false</code></pre></p>
+
+		<p>I'm kidding. Please, don't do that.</p>
+
+		<p>So the <code>Object</code> constructor function can receive a value and objects can have properties. This is too difficult! let's see other options...</p>
+
+		<h2 id="literal_notation">Literal object notation <a href="#index">&uarr; up</a></h2>
+
+		<p>Also called <em>initializer</em> notation. You can write new objects like this:</p>
+
+		<p><pre><code>const myCar = {
+	make: "Ford",
+	model: "Mustang",
+	year: 1969
+};</code></pre></p>
+
+		<p>This will get you an instance just like the one in the previous example that used the <code>Object</code> type's constructor function. Just like that, easy peasy lemon squeezy.</p>
+
+		<p>The downside of this (and previous) mechanisms is that you have to manually define all the properties of your objects each time they're created. You don't get to inherit properties from a common object and that can be a burden especially when you're trying to add methods to your objects.</p>
+
+		<p>There are other alternatives...</p>
+
+		<h2 id="object_create"><code>Object.create</code> function <a href="#index">&uarr; up</a></h2>
+
+		<p>This is really complex and you should know about prototypical inheritance to use this function. Let's say that you have some object that holds a prototype you want to use to assing to new objects:</p>
+
+		<p><pre><code>const birthdayPrototype = {
+	isToday() {
+		const today = new Date();
+		return this.date.getYear() == today.getYear() 
+		    && this.date.getMonth() == today.getMonth() 
+		    && this.date.getDate() == today.getDate();
+	}
+}</code></pre></p>
+
+		<p>Then you can obtain new objects that will have this prototype like so:</p>
+
+		<p><pre><code>const johnsBirthday = Object.create(prototype);
+
+johnsBirthday.date = new Date();
+johnsBirthday.isToday() // this is true
+
+johnsBirthday.date = new Date(2016,1,1);
+johnsBirthday.isToday() // this is false</code></pre></p>
+	</article>
+</body>
+</html>
+
+
+
