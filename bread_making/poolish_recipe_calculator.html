@@ -486,7 +486,7 @@
     const computePoolish = () => {
       const poolishFlourWeight = round(view.getResult('total_flour_weight') * view.getValue('poolish_percentage') / 100);
       const poolishWaterWeight = round(poolishFlourWeight * view.getValue('poolish_hydration_percentage') / 100);
-      const poolishYeastWeight = round(poolishFlourWeight * view.getValue('poolish_yeast_percentage') / 100, 2);
+      const poolishYeastWeight = round(poolishFlourWeight * view.getValue('poolish_yeast_percentage') / 300, 2);
       view.setResult('poolish_flour_weight', poolishFlourWeight);
       view.setResult('poolish_water_weight', poolishWaterWeight);
       view.setResult('poolish_yeast_weight', poolishYeastWeight);
