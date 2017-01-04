@@ -7,28 +7,15 @@
   <title>Rumiations - Poolish bread recipe calculator</title>
   <meta name="description" content="Poolish bread recipe calculator">
 
-  <link rel="stylesheet" href="../css/ggalmazor.github.com.css">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   <!--[if lt IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
 
-  <style>
-    .hidden {
-      display: none;
-    }
-
-    input {
-      width: 65px;
-    }
-
-    tab-pane {
-      display: block;
-      padding-top: 20px;
-    }
-  </style>
-
+  <link rel="stylesheet" href="../css/ggalmazor.github.com.css">
+  <link rel="stylesheet" href="poolish_recipe_calculator.css">
 </head>
 
 <body>
@@ -39,13 +26,13 @@
 
   <p>This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
 
-  <tabs-pane>
+  <tabs>
     <tab target-id="parameters">Parameters</tab>
     <tab target-id="recipe">Recipe</tab>
     <tab target-id="flour-calculator">Flour calculator</tab>
-  </tabs-pane>
+  </tabs>
 
-  <tab-pane id="parameters">
+  <section id="parameters">
     <p>(edit values by <strong>double clicking</strong> on them and then press enter or click elsewhere)</p>
 
     <h3>Recipe parameters</h3>
@@ -55,7 +42,7 @@
         <h4>Desired dough weight:
           <value id="total_dough_weight" default-value="1000" units="g"></value>
         </h4>
-        <h4>Desired dough hydration percentage:
+        <h4>Desired dough hydration:
           <value id="dough_hydration_percentage" default-value="80" units="%"></value>
         </h4>
 
@@ -133,8 +120,8 @@
         <p>You can provide an extra kick of yeast in the dough</p>
       </div>
     </div>
-  </tab-pane>
-  <tab-pane class="hidden" id="recipe">
+  </section>
+  <section class="hidden" id="recipe">
     <p>(the values shown here are computed from the parameters of the tab "Parameters")</p>
     <div class="row">
       <div class="col-md-3">
@@ -183,8 +170,8 @@
       <li>rest of yeast = total flour - rest of dough yeast percentage</li>
       <li>salt = total flour * salt percentage</li>
     </ul>
-  </tab-pane>
-  <tab-pane class="hidden" id="flour-calculator">
+  </section>
+  <section class="hidden" id="flour-calculator">
     <p>Maybe you're planning on mixing different flour types. Use this calculator to know how much of each type you need to mix.</p>
 
     <table class="table">
@@ -225,306 +212,19 @@
         </td>
       </tr>
     </table>
-  </tab-pane>
+  </section>
 </div>
 
+<script src="components/tabs.js"></script>
+<script src="components/tab.js"></script>
+<script src="components/toggle.js"></script>
+<script src="components/result.js"></script>
+<script src="components/value.js"></script>
+<script src="view.js"></script>
+<script src="controller.js"></script>
+
 <script>
-
-  const round = (number, decimalPlaces = 0) => {
-    const factor = Math.pow(10, decimalPlaces);
-    return Math.round(number * factor) / factor;
-  };
-
-  // Components
-  const TabPane = element => {
-    const tabs = Array.from(element.querySelectorAll("tab"))
-        .map(child => {
-          element.removeChild(child);
-          return Tab(child);
-        });
-    const dom = {
-      ul: document.createElement('ul')
-    };
-
-    dom.ul.className = 'nav nav-tabs';
-    element.innerHTML = '';
-    element.appendChild(dom.ul);
-    element.addEventListener('click', e => tabs.filter(tab => e.target.parentElement != tab.li)
-        .forEach(tab => tab.deactivate()));
-
-    tabs.forEach(tab => dom.ul.appendChild(tab.li));
-
-    tabs[0].activate();
-
-    return {};
-  };
-
-  const Tab = element => {
-    const text = element.innerHTML;
-    const targetId = element.getAttribute('target-id');
-    const dom = {
-      li: document.createElement('li'),
-      link: document.createElement('a'),
-      target: document.querySelector(`#${targetId}`)
-    };
-    let status = false; // true: active
-    let targetStatus = dom.target.className.indexOf("hidden") === -1; // true: visible
-
-    dom.link.setAttribute('href', '');
-    dom.link.innerHTML = text;
-    dom.link.addEventListener('click', e => {
-      e.preventDefault();
-      status = true;
-      targetStatus = true;
-      render();
-    });
-
-    element.innerHTML = '';
-    element.appendChild(dom.li);
-    dom.li.appendChild(dom.link);
-
-    const render = () => {
-      dom.li.className = status ? 'active' : '';
-      if (targetStatus) {
-        dom.target.className = '';
-      } else {
-        dom.target.className = 'hidden';
-      }
-    };
-
-    const activate = () => {
-      status = true;
-      targetStatus = true;
-      render();
-    };
-
-    const deactivate = () => {
-      status = false;
-      targetStatus = false;
-      render();
-    };
-
-    render();
-
-    return {activate, deactivate, li: dom.li};
-  };
-
-  const Toggle = element => {
-    const text = element.innerHTML;
-    const targetId = element.getAttribute('target-id');
-    const dom = {
-      target: document.querySelector(`#${targetId}`),
-      link: document.createElement("a")
-    };
-
-    let status = dom.target.className.indexOf("hidden") === -1; // true: visible
-
-    dom.link.setAttribute('href', '');
-    dom.link.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      status = !status;
-      render();
-    });
-
-    element.innerHTML = '';
-    element.appendChild(dom.link);
-
-    const render = () => {
-      if (status) {
-        dom.target.className = '';
-        dom.link.innerHTML = `▴ ${text} ▴`;
-      } else {
-        dom.target.className = 'hidden';
-        dom.link.innerHTML = `▾ ${text} ▾`;
-      }
-    };
-
-    render();
-
-    return {};
-  };
-
-  const Value = element => {
-    const id = element.getAttribute("id");
-    const units = element.getAttribute("units");
-    const dom = {
-      span: document.createElement("span"),
-      input: document.createElement("input")
-    };
-    const changeCallbacks = [];
-
-    let value = parseFloat(element.getAttribute("default-value") || 0);
-
-    dom.input.setAttribute('type', 'number');
-    dom.input.setAttribute('value', value);
-    dom.input.className = 'hidden';
-    dom.input.addEventListener('keypress', e => {
-      if ((e.which || e.keyCode) === 13) {
-        value = parseFloat(dom.input.value);
-        changeCallbacks.forEach(callback => callback(value));
-        dom.input.className = 'hidden';
-        dom.span.className = '';
-        render();
-      }
-    });
-    dom.input.addEventListener('blur', () => {
-      value = parseFloat(dom.input.value);
-      changeCallbacks.forEach(callback => callback(value));
-      dom.input.className = 'hidden';
-      dom.span.className = '';
-      render();
-    });
-
-    dom.span.addEventListener('dblclick', () => {
-      dom.input.className = '';
-      dom.span.className = 'hidden';
-      dom.input.focus();
-      dom.input.select();
-    });
-
-    element.appendChild(dom.span);
-    element.appendChild(dom.input);
-
-    const render = () => dom.span.innerHTML = `${value} ${units}`;
-
-    const getValue = () => value;
-
-    const onChange = callback => changeCallbacks.push(callback);
-    render();
-
-    return {id, getValue, onChange};
-  };
-
-  const Result = element => {
-    const id = element.getAttribute("id");
-    const units = element.getAttribute("units");
-    const dom = {
-      span: document.createElement("span")
-    };
-    const changeCallbacks = [];
-    let value = '?';
-
-    element.appendChild(dom.span);
-
-    const render = () => dom.span.innerHTML = `${value} ${units}`;
-
-    const getValue = () => value;
-
-    const setValue = newValue => {
-      value = newValue;
-      changeCallbacks.forEach(callback => callback(value));
-      render();
-    };
-
-    const onChange = callback => changeCallbacks.push(callback);
-
-    render();
-
-    return {id, getValue, setValue, onChange};
-  };
-
-  // View
-  const View = () => {
-    const components = {
-      tabPanes: Array.from(document.querySelectorAll("tabs-pane"))
-          .map(element => TabPane(element)),
-      values: Array.from(document.querySelectorAll("value"))
-          .map(element => Value(element)),
-      results: Array.from(document.querySelectorAll("result"))
-          .map(element => Result(element)),
-      toggles: Array.from(document.querySelectorAll("toggle"))
-          .map(element => Toggle(element))
-    };
-
-    const valueIndex = {};
-    components.values.forEach(value => {
-      valueIndex[value.id] = value;
-    });
-
-    const resultIndex = {};
-    components.results.forEach(result => {
-      resultIndex[result.id] = result;
-    });
-
-    const getValues = () => components.values;
-
-    const getValue = id => {
-      return valueIndex[id].getValue();
-    };
-
-    const getResult = id => {
-      return resultIndex[id].getValue();
-    };
-
-    const setResult = (id, value) => {
-      resultIndex[id].setValue(value);
-    };
-
-    const onValueChange = (id, callback) => {
-      valueIndex[id].onChange(callback);
-    };
-
-    const onResultChange = (id, callback) => {
-      resultIndex[id].onChange(callback);
-    };
-
-    return {getValues, getValue, getResult, setResult, onValueChange, onResultChange};
-  };
-
-  const ctrl = (() => {
-    const view = View();
-
-    const computeTotalFlourAndWater = () => {
-      const hydrationPercentage = view.getValue('dough_hydration_percentage') / 100;
-      const totalFlourWeight = round(view.getValue('total_dough_weight') / (1 + hydrationPercentage));
-      const totalWaterWeight = round(view.getValue('total_dough_weight') - totalFlourWeight);
-      view.setResult('total_flour_weight', totalFlourWeight);
-      view.setResult('total_water_weight', totalWaterWeight);
-    };
-
-    const computePoolish = () => {
-      const poolishFlourWeight = round(view.getResult('total_flour_weight') * view.getValue('poolish_percentage') / 100);
-      const poolishWaterWeight = round(poolishFlourWeight * view.getValue('poolish_hydration_percentage') / 100);
-      const poolishYeastWeight = round(poolishFlourWeight * view.getValue('poolish_yeast_percentage') / 300, 2);
-      view.setResult('poolish_flour_weight', poolishFlourWeight);
-      view.setResult('poolish_water_weight', poolishWaterWeight);
-      view.setResult('poolish_yeast_weight', poolishYeastWeight);
-    };
-
-    const computeRest = () => {
-      const totalFlourWeight = view.getResult('total_flour_weight');
-      const restFlourWeight = totalFlourWeight - view.getResult('poolish_flour_weight');
-      const restWaterWeight = view.getResult('total_water_weight') - view.getResult('poolish_water_weight');
-      const restYeastWeight = round(totalFlourWeight * view.getValue('rest_yeast_percentage') / 300, 2);
-      const saltWeight = round(totalFlourWeight * view.getValue('salt_percentage') / 100);
-      view.setResult('rest_flour_weight', restFlourWeight);
-      view.setResult('rest_water_weight', restWaterWeight);
-      view.setResult('rest_yeast_weight', restYeastWeight);
-      view.setResult('salt_weight', saltWeight);
-    };
-
-    const computeYeastTypes = () => {
-      const totalWeight = view.getResult('total_flour_weight');
-      [1, 2, 3, 4].forEach(typeNumber => view.setResult(
-          `flour_type_${typeNumber}_total`,
-          round(totalWeight * view.getValue(`flour_type_${typeNumber}_percentage`) / 100)
-      ));
-    };
-
-    const computeAll = () => {
-      computeTotalFlourAndWater();
-      computePoolish();
-      computeRest();
-      computeYeastTypes();
-    };
-
-    computeAll();
-
-    view.getValues().forEach(value => value.onChange(computeAll));
-
-    return {};
-  })();
+Ctrl.bootstrap();
 </script>
 </body>
 </html>
