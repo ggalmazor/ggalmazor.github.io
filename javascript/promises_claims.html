@@ -1,0 +1,166 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Rumiations - Promises claims</title>
+  <meta name="description" content="Rumiations of @ggalmazor about Promises claims">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/rainbow/rainbow.solarized-light.css">
+
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+
+  <script src="../assets/rainbow/rainbow.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+  <p><a href="../">&larr; go back...</a></p>
+
+  <h1>Promises claims</h1>
+
+  <p>This is an experiment to test the behavior of Promises under certain scenarios. For more info, take a look into this page's source code. All claims' panels are dynamically generated.</p>
+
+</div>
+
+<script>
+  const container = document.querySelector('.container');
+
+  const buildPanel = (claim, callback, output) => {
+    const outerDiv = document.createElement('div');
+    const headerDiv = document.createElement('div');
+    const bodyDiv = document.createElement('div');
+    const pre = document.createElement('pre');
+    const code = document.createElement('code');
+    const codePre = document.createElement('pre');
+    outerDiv.className = 'panel panel-default';
+    headerDiv.className = 'panel-heading';
+    bodyDiv.className = 'panel-body';
+    headerDiv.innerHTML = claim;
+    pre.innerHTML = `${output}`;
+    code.innerHTML = js_beautify(callback.toString());
+    code.setAttribute("data-language", "javascript");
+    codePre.appendChild(code);
+    bodyDiv.appendChild(codePre);
+    bodyDiv.appendChild(pre);
+    outerDiv.appendChild(headerDiv);
+    outerDiv.appendChild(bodyDiv);
+    container.appendChild(outerDiv);
+  };
+
+  const success = 'success';
+  const failure = 'failure';
+
+  const experiment = (claim, callback) => {
+    let output = '';
+    const log = msg => output += `${msg}\n`;
+    const seqs = {
+      nonReturning: 0,
+      returning: 0,
+      throwing: 0,
+      resolvingValue: 0,
+      rejectingValue: 0,
+      throws: 0,
+      rejections: 0
+    };
+    const factories = {
+      nonReturning: type => value => {
+        log(`Non returning ${type} callback #${++seqs.nonReturning} received value ${value}`);
+      },
+      returning: type => value => {
+        log(`Returning ${type} callback #${++seqs.returning} received value ${value}`);
+        return value;
+      },
+      throwing: type => value => {
+        log(`Throwing ${type} callback #${++seqs.throwing} received value ${value}`);
+        throw Error(`Throw #${++seqs.throws} - input value: ${value}`);
+      },
+      resolvingValue: type => value => {
+        log(`Returning a resolved promise ${type} callback #${++seqs.resolvingValue} received value ${value}`);
+        return Promise.resolve(value);
+      },
+      rejectingValue: type => value => {
+        log(`Returning a rejected promise ${type} callback #${++seqs.rejectingValue} received value ${value}`);
+        return Promise.reject(`Rejection #${++seqs.rejections} - input value: ${value}`);
+      },
+      resolved: value => {
+        log(`Creating a resolved promise with value "${value}"`);
+        return Promise.resolve(value);
+      },
+      rejected: value => {
+        log(`Creating a rejected promise with value "${value}"`);
+        return Promise.reject(value);
+      }
+    };
+
+    callback(factories).then(
+        p => {
+          buildPanel(claim, callback, output);
+        },
+        p => {
+          buildPanel(claim, callback, output);
+          throw p;
+        }
+    );
+  };
+
+  experiment("Failure callback gets ignored if promise is resolved", factories => {
+    return factories.resolved(1)
+        .then(factories.nonReturning(success), factories.nonReturning(failure));
+  });
+
+  experiment("Success callbacks are called in sequence regardless of their returning a value or not", factories => {
+    return factories.resolved(1)
+        .then(factories.returning(success))
+        .then(factories.nonReturning(success))
+        .then(factories.returning(success))
+  });
+
+  experiment("A rejected promise will produce an Error (take a look to the console)", factories => {
+    return factories.rejected("error #1");
+  });
+
+  experiment("A rejected promise can be recovered with a failure callback and then the chains continues through the success branch with whatever it returns", factories => {
+    return factories.rejected("error #2")
+        .then(null, factories.nonReturning(failure))
+        .then(factories.nonReturning(success));
+  });
+
+  experiment("A success callback that throws will produce a rejected promise and throw if not recovered", factories => {
+    return factories.resolved("this error will be thrown")
+        .then(factories.throwing(success));
+  });
+
+  experiment("Any promise returned by a success callback gets flatmapped #1", factories => {
+    return factories.resolved(1)
+        .then(factories.resolvingValue(success))
+        .then(factories.nonReturning(success));
+  });
+
+  experiment("Any promise returned by a success callback gets flatmapped #2", factories => {
+    return factories.resolved(1)
+        .then(factories.rejectingValue(success))
+        .then(null, factories.nonReturning(failure));
+  });
+
+  experiment("Any promise returned by a failure callback gets flatmapped #1", factories => {
+    return factories.rejected("this error will be recovered")
+        .then(null, factories.resolvingValue(failure))
+        .then(factories.nonReturning(success));
+  });
+
+  experiment("Any promise returned by a failure callback gets flatmapped #2", factories => {
+    return factories.rejected("this error will be recovered")
+        .then(null, factories.rejectingValue(failure))
+        .then(null, factories.nonReturning(failure));
+  })
+</script>
+
+</body>
+</html>
