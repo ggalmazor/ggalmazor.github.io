@@ -1,0 +1,128 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Rumiations - Object creation strategies in JavaScript</title>
+  <meta name="description" content="Rumiations about Object creation strategies in JavaScript">
+  <link rel="icon" type="image/png" href="/favicon.png"/>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/rainbow/rainbow.solarized-light.css">
+
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+
+  <script src="../assets/rainbow/rainbow.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+  <p><a href="../">&larr; go back...</a></p>
+
+  <h1>Object creation strategies in JavaScript</h1>
+
+  <p>We have discussed different options to create new objects in an article about <a href="object_creation_in_js.html">Object creation in JavaScript</a>.</p>
+
+  <p>In this article we will look at aspects about <strong>encapsulation</strong> and <strong>cardinality</strong> that we need to consider while deciding how to create objects.</p>
+
+  <p><strong>TL;DR</strong>: Use literal object notation for ad-hoc, all public objects. Use a factory function for singleton objects that need private state. Use prototypical inheritance for model objects or types that will need lots of instances.</p>
+
+  <h2>Literal object by default</h2>
+
+  <p>Always use <a href="object_creation_in_js.html#literal_notation">literal objects</a> for everything unless you have a compelling reason not to.</p>
+
+  <p>This is, hands down, the cheapest and more straightforward syntax when you need objects in JavaScript.</p>
+
+  <h2>Encapsulation</h2>
+
+  <p>The downside of <a href="object_creation_in_js.html#literal_notation">literal objects</a> is that everything is public by default and you can't do anything to prevent this.</p>
+
+  <p>Not only this breaks <a href="https://www.wikiwand.com/en/Encapsulation_(computer_programming)">encapsulation</a>. It also produces <a href="https://www.wikiwand.com/en/Leaky_abstraction">leaky abstractions</a>. You should read about these things if you don't get why they're bad for you.</p>
+
+  <p>As we've said before, there is nothing you can do in JavaScript to conceal a property. There is no <code>private</code> keyword as in other languages but we can leverage other language mechanisms to get the same effect and enforce encapsulation.</p>
+
+  <h3>Enter the function</h3>
+
+  <p>In JavaScript, functions get their own variable scope. Variables declared inside a function are undefined outside them, but any variable declared outside a function is defined inside:</p>
+
+  <pre><code data-language="javascript">const a = 33;
+
+function someFn() {
+  const b = 42;
+  console.log(a);
+  console.log(b);
+}
+
+someFn(); // outputs "33" and "42"
+console.log(b); // outputs "undefined"</code></pre>
+
+  <p>In this code, we could say that <code>b</code> in <code>someFn</code> is "private".</p>
+
+  <p>Let's say that we have some literal object and we don't like that some of its properties are public:</p>
+
+  <pre><code data-language="javascript">const a = {
+  prop1: 33,
+  prop2: 42,
+  someMethod: function () {
+    console.log(this.prop1, this.prop2);
+  }
+};</code></pre>
+
+  <p>We'd like to expose <code>someMethod</code> and hide <code>prop1</code> and <code>prop2</code>. We don't want no one to access those properties directly and change their value by accident or couple some other part of the code to them, affecting to our ability to refactor them freely without concerning ourselves about breaking other unexpected places in our code.</p>
+
+  <p>We could rewrite it to this:</p>
+
+  <pre><code data-language="javascript">function A() {
+  const prop1 = 33;
+  const prop2 = 42;
+
+  return {
+    someMethod() {
+      console.log(prop1, prop2);
+    }
+  };
+};
+
+const a = A();</code></pre>
+
+  <p>This proposes a pattern that is really easy to understand:</p>
+
+  <ul>
+    <li>You write a function that returns a literal object.</li>
+    <li>Everything inside the function is a "private" implementation detail.</li>
+    <li>Anything that you need to make "public", you place it or refer to it inside the literal object that gets returned</li>
+    <li>You can think of this object as the "API for your object".</li>
+    <li>You create new objects by calling the function.</li>
+  </ul>
+
+  <p>We usually write this functions like this:</p>
+
+  <pre><code data-language="javascript">function A() {
+  const prop1 = 33;
+  const prop2 = 42;
+  const someMethod = () => console.log(prop1, prop2);
+
+  return {someMethod};
+};
+
+const a = A();</code></pre>
+
+  <h2>Cardinality</h2>
+
+  <p>With literal objects and functions that return objects it seems that we have all our needs covered; we don't need anything more.</p>
+
+  <p>This is not true in a browser's context or if efficiency is one of your concerns.</p>
+
+  <p>The fact is that we have <a href="object_creation_in_js.html#constructor_function_and_new">more</a> <a href="object_creation_in_js.html#ecmascript2015_class">ways</a> to <a href="object_creation_in_js.html#object_create">create objects</a> in JavaScript. They surely have their purpose.</p>
+
+
+  <p>WIP</p>
+</div>
+</body>
+</html>
+
+
+
