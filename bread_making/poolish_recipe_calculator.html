@@ -1,0 +1,230 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Rumiations - Poolish bread recipe calculator</title>
+  <meta name="description" content="Poolish bread recipe calculator">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+
+  <link rel="stylesheet" href="../css/ggalmazor.github.com.css">
+  <link rel="stylesheet" href="poolish_recipe_calculator.css">
+</head>
+
+<body>
+<div class="container">
+  <p><a href="../">&larr; go back...</a></p>
+
+  <h1>Poolish bread recipe calculator</h1>
+
+  <p>This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
+
+  <tabs>
+    <tab target-id="parameters">Parameters</tab>
+    <tab target-id="recipe">Recipe</tab>
+    <tab target-id="flour-calculator">Flour calculator</tab>
+  </tabs>
+
+  <section id="parameters">
+    <p>(edit values by <strong>double clicking</strong> on them and then press enter or click elsewhere)</p>
+
+    <h3>Recipe parameters</h3>
+    <hr/>
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Desired dough weight:
+          <value id="total_dough_weight" default-value="1000" units="g"></value>
+        </h4>
+        <h4>Desired dough hydration:
+          <value id="dough_hydration_percentage" default-value="80" units="%"></value>
+        </h4>
+
+      </div>
+      <div class="col-md-8">
+        <p><strong>Pro-tip</strong>: Use a high hydration setting (~80%) for whole-grain breads. The dough will be harder to handle but you'll get the best results.</p>
+      </div>
+    </div>
+    <h3>Poolish parameters</h3>
+    <hr/>
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Poolish percentage:
+          <value id="poolish_percentage" default-value="40" units="%"></value>
+        </h4>
+        <h4>Hydration percentage:
+          <value id="poolish_hydration_percentage" default-value="125" units="%"></value>
+        </h4>
+        <h4>Yeast percentage:
+          <value id="poolish_yeast_percentage" default-value="0.1" units="%"></value>
+        </h4>
+      </div>
+      <div class="col-md-8">
+        <p>A poolish is a wet (between 100% and 125% of hydration) preferment prepared at room temperature. You can adjust the starter yeast amount depending on the time you want (or have).</p>
+        <p>
+          <toggle target-id="poolish_info">more info</toggle>
+        </p>
+        <section id="poolish_info" class="hidden">
+          <p>Tips:</p>
+
+          <ul>
+            <li>Longer fermentation times will provide a deeper flavour but will also weaken the gluten in the flour.</li>
+            <li>You can double times by leaving it in the freezer.</li>
+          </ul>
+
+          <p>Use this table to decide the percentage of yeast to choose depending on the fermentation time you want:</p>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Fermentation time</th>
+              <th>(fresh) yeast %</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>3 hours</td>
+              <td>1.5%</td>
+            </tr>
+            <tr>
+              <td>7 hours</td>
+              <td>0.7%</td>
+            </tr>
+            <tr>
+              <td>12 hours</td>
+              <td>0.1%</td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+    <h3>Parameters for the rest of the dough</h3>
+    <hr/>
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Salt percentage:
+          <value id="salt_percentage" default-value="2.4" units="%"></value>
+        </h4>
+        <h4>Yeast percentage:
+          <value id="rest_yeast_percentage" default-value="0.1" units="%"></value>
+        </h4>
+      </div>
+      <div class="col-md-8">
+        <p>You can provide an extra kick of yeast in the dough</p>
+      </div>
+    </div>
+  </section>
+  <section class="hidden" id="recipe">
+    <p>(the values shown here are computed from the parameters of the tab "Parameters")</p>
+    <div class="row">
+      <div class="col-md-3">
+        <h4>Total flour:
+          <result id="total_flour_weight" units="g"></result>
+        </h4>
+        <h4>Total water:
+          <result id="total_water_weight" units="g"></result>
+        </h4>
+      </div>
+      <div class="col-md-3">
+        <h4>Poolish flour:
+          <result id="poolish_flour_weight" units="g"></result>
+        </h4>
+        <h4>Poolish water:
+          <result id="poolish_water_weight" units="g"></result>
+        </h4>
+        <h4>Poolish yeast:
+          <result id="poolish_yeast_weight" units="g"></result>
+        </h4>
+      </div>
+      <div class="col-md-3">
+        <h4>Rest of flour:
+          <result id="rest_flour_weight" units="g"></result>
+        </h4>
+        <h4>Rest of water:
+          <result id="rest_water_weight" units="g"></result>
+        </h4>
+        <h4>Rest of yeast:
+          <result id="rest_yeast_weight" units="g"></result>
+        </h4>
+        <h4>Salt:
+          <result id="salt_weight" units="g"></result>
+        </h4>
+      </div>
+    </div>
+    <p>Formulas:</p>
+    <ul>
+      <li>total flour = desired dough / (1 + hydration percentage)</li>
+      <li>total water = desired dough - total flour</li>
+      <li>poolish flour = total flour * poolish percentage</li>
+      <li>poolish water = poolish flour * poolish hydration percentage</li>
+      <li>poolish yeast = poolish flour * poolish yeast percentage</li>
+      <li>rest of flour = total flour - poolish flour</li>
+      <li>rest of water = total water - poolish water</li>
+      <li>rest of yeast = total flour - rest of dough yeast percentage</li>
+      <li>salt = total flour * salt percentage</li>
+    </ul>
+  </section>
+  <section class="hidden" id="flour-calculator">
+    <p>Maybe you're planning on mixing different flour types. Use this calculator to know how much of each type you need to mix.</p>
+
+    <table class="table">
+      <tr>
+        <td>Flour type 1</td>
+        <td>
+          <value id="flour_type_1_percentage" default-value="100" units="%"></value>
+        </td>
+        <td>
+          <result id="flour_type_1_total" units="g"></result>
+        </td>
+      </tr>
+      <tr>
+        <td>Flour type 2</td>
+        <td>
+          <value id="flour_type_2_percentage" default-value="0" units="%"></value>
+        </td>
+        <td>
+          <result id="flour_type_2_total" units="g"></result>
+        </td>
+      </tr>
+      <tr>
+        <td>Flour type 3</td>
+        <td>
+          <value id="flour_type_3_percentage" default-value="0" units="%"></value>
+        </td>
+        <td>
+          <result id="flour_type_3_total" units="g"></result>
+        </td>
+      </tr>
+      <tr>
+        <td>Flour type 4</td>
+        <td>
+          <value id="flour_type_4_percentage" default-value="0" units="%"></value>
+        </td>
+        <td>
+          <result id="flour_type_4_total" units="g"></result>
+        </td>
+      </tr>
+    </table>
+  </section>
+</div>
+
+<script src="components/tabs.js"></script>
+<script src="components/tab.js"></script>
+<script src="components/toggle.js"></script>
+<script src="components/result.js"></script>
+<script src="components/value.js"></script>
+<script src="view.js"></script>
+<script src="controller.js"></script>
+
+<script>
+Ctrl.bootstrap();
+</script>
+</body>
+</html>
