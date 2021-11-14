@@ -11,9 +11,9 @@
     <a href="/about.html" class="dib ttu link dim black-70 pt3 pb3 pl3">about</a>
 </nav>
 <section class="w-100 mw7 center">
-    <h1 class="h1 mb4">Poolish bread recipe calculator</h1>
+    <h1 class="h1 mb4 f3">Poolish bread recipe calculator</h1>
 
-    <p>This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
+    <p class="f3">This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
 
     <section>
         <h2 class="h2 mb0">Parameters</h2>
@@ -129,9 +129,15 @@
         </ul>
     </section>
 </section>
+<footer class="mt5 w-100 mw7 center">
+    <p class="f6">
+        <span class="dib mr2">©2021 ggalmazor.com</span>
+        <span class="dib mr2">/</span>
+        <span class="dib">shamelessly <strike>copied from</strike> inspired by <a href="https://javisantana.com" class="link dim black-70 fw5">javisantana.com</a></span>
+    </p>
+</footer>
 
 <script>
-
   function round(number, decimalPlaces = 0) {
     const factor = Math.pow(10, decimalPlaces);
     return Math.round(number * factor) / factor;
@@ -139,45 +145,57 @@
 
   function computeRecipe(dom) {
     const hydrationPercentage = dom.dough_hydration_percentage() / 100;
-    const totalFlourWeight = dom.total_dough_weight() / (1 + hydrationPercentage);
-    const totalWaterWeight = dom.total_dough_weight() - totalFlourWeight;
-    const poolishFlourWeight = totalFlourWeight * (dom.poolish_percentage() / 100);
-    const poolishWaterWeight = poolishFlourWeight * (dom.poolish_hydration_percentage() / 100);
-    const poolishYeastWeight = poolishFlourWeight * (dom.poolish_yeast_percentage() / 100);
-    const restFlourWeight = totalFlourWeight - poolishFlourWeight;
-    const restWaterWeight = totalWaterWeight - poolishWaterWeight;
-    const restYeastWeight = totalFlourWeight * (dom.rest_yeast_percentage() / 100);
-    const saltWeight = totalFlourWeight * (dom.salt_percentage() / 100);
 
+    const totalFlourWeight = dom.total_dough_weight() / (1 + hydrationPercentage);
     dom.total_flour_weight(round(totalFlourWeight));
+
+    const totalWaterWeight = dom.total_dough_weight() - totalFlourWeight;
     dom.total_water_weight(round(totalWaterWeight));
+
+    const poolishFlourWeight = totalFlourWeight * (dom.poolish_percentage() / 100);
     dom.poolish_flour_weight(round(poolishFlourWeight));
+
+    const poolishWaterWeight = poolishFlourWeight * (dom.poolish_hydration_percentage() / 100);
     dom.poolish_water_weight(round(poolishWaterWeight));
+
+    const poolishYeastWeight = poolishFlourWeight * (dom.poolish_yeast_percentage() / 100);
     dom.poolish_yeast_weight(round(poolishYeastWeight, 2));
+
+    const restFlourWeight = totalFlourWeight - poolishFlourWeight;
     dom.rest_flour_weight(round(restFlourWeight));
+
+    const restWaterWeight = totalWaterWeight - poolishWaterWeight;
     dom.rest_water_weight(round(restWaterWeight));
+
+    const restYeastWeight = totalFlourWeight * (dom.rest_yeast_percentage() / 100);
     dom.rest_yeast_weight(round(restYeastWeight, 2));
+
+    const saltWeight = totalFlourWeight * (dom.salt_percentage() / 100);
     dom.salt_weight(round(saltWeight, 2));
   }
 
+  const int_getter = id => () => parseInt(document.querySelector(`#${id}`).value);
+  const float_getter = id => () => parseFloat(document.querySelector(`#${id}`).value);
+  const grams_setter = id => value => document.querySelector(`#${id}`).innerHTML = `${value}g`;
+
   document.addEventListener("DOMContentLoaded", () => {
     const dom = {
-      total_dough_weight: () => parseInt(document.querySelector("#total_dough_weight").value),
-      dough_hydration_percentage: () => parseInt(document.querySelector('#dough_hydration_percentage').value),
-      poolish_percentage: () => parseInt(document.querySelector('#poolish_percentage').value),
-      poolish_hydration_percentage: () => parseInt(document.querySelector('#poolish_hydration_percentage').value),
-      poolish_yeast_percentage: () => parseFloat(document.querySelector('#poolish_yeast_percentage').value),
-      salt_percentage: () => parseFloat(document.querySelector('#salt_percentage').value),
-      rest_yeast_percentage: () => parseFloat(document.querySelector('#rest_yeast_percentage').value),
-      total_flour_weight: value => document.querySelector('#total_flour_weight').innerHTML = `${value}g`,
-      total_water_weight: value => document.querySelector('#total_water_weight').innerHTML = `${value}g`,
-      poolish_flour_weight: value => document.querySelector('#poolish_flour_weight').innerHTML = `${value}g`,
-      poolish_water_weight: value => document.querySelector('#poolish_water_weight').innerHTML = `${value}g`,
-      poolish_yeast_weight: value => document.querySelector('#poolish_yeast_weight').innerHTML = `${value}g`,
-      rest_flour_weight: value => document.querySelector('#rest_flour_weight').innerHTML = `${value}g`,
-      rest_water_weight: value => document.querySelector('#rest_water_weight').innerHTML = `${value}g`,
-      rest_yeast_weight: value => document.querySelector('#rest_yeast_weight').innerHTML = `${value}g`,
-      salt_weight: value => document.querySelector('#salt_weight').innerHTML = `${value}g`,
+      total_dough_weight: int_getter('total_dough_weight'),
+      dough_hydration_percentage: int_getter('dough_hydration_percentage'),
+      poolish_percentage: int_getter('poolish_percentage'),
+      poolish_hydration_percentage: int_getter('poolish_hydration_percentage'),
+      poolish_yeast_percentage: float_getter('poolish_yeast_percentage'),
+      salt_percentage: float_getter('salt_percentage'),
+      rest_yeast_percentage: float_getter('rest_yeast_percentage'),
+      total_flour_weight: grams_setter('total_flour_weight'),
+      total_water_weight: grams_setter('total_water_weight'),
+      poolish_flour_weight: grams_setter('poolish_flour_weight'),
+      poolish_water_weight: grams_setter('poolish_water_weight'),
+      poolish_yeast_weight: grams_setter('poolish_yeast_weight'),
+      rest_flour_weight: grams_setter('rest_flour_weight'),
+      rest_water_weight: grams_setter('rest_water_weight'),
+      rest_yeast_weight: grams_setter('rest_yeast_weight'),
+      salt_weight: grams_setter('salt_weight')
     }
     document.querySelectorAll("input").forEach(input => input.addEventListener("change", () => computeRecipe(dom)));
     computeRecipe(dom);
