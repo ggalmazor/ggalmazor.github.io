@@ -1,230 +1,187 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<body class="w-100 avenir black-70 bg-white pa3">
+<nav class="center w-100 mw7 mb5 flex justify-between items-end">
+    <a href="/" class="dib ttu link dim black-70 fw6 pt3 pr3 pb3">ggalmazor.com</a>
+    <span class="dib w-100"></span>
+    <a href="https://twitter.com/ggalmazor" class="dib link dim black-70 pa3">@ggalmazor</a>
+    <a href="/about.html" class="dib ttu link dim black-70 pt3 pb3 pl3">about</a>
+</nav>
+<section class="w-100 mw7 center">
+    <h1 class="h1 mb4">Poolish bread recipe calculator</h1>
 
-  <title>Rumiations - Poolish bread recipe calculator</title>
-  <meta name="description" content="Poolish bread recipe calculator">
+    <p>This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
 
+    <section>
+        <h2 class="h2 mb0">Parameters</h2>
+        <div class="flex flex-column flex-row-ns">
+            <div class="w-100 w-33-ns pr3">
+                <h2 class="h2 mb4">Overall</h2>
+                <div>
+                    <label for="total_dough_weight" class="f6 b db mb2">Desired dough weight <span class="normal black-60">(grams)</span></label>
+                    <input id="total_dough_weight" name="total_dough_weight" type="number" value="1000" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                </div>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                <div>
+                    <label for="dough_hydration_percentage" class="f6 b db mb2">Desired dough hydration <span class="normal black-60">(%)</span></label>
+                    <input id="dough_hydration_percentage" name="dough_hydration_percentage" type="number" value="80" max="100" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                </div>
+            </div>
+            <div class="w-100 w-33-ns ph3">
+                <h2 class="h2 mb4">Poolish</h2>
 
-  <!--[if lt IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
+                <div>
+                    <label for="poolish_percentage" class="f6 b db mb2">Poolish percentage <span class="normal black-60">(%)</span></label>
+                    <input id="poolish_percentage" name="poolish_percentage" type="number" value="40" max="100" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                </div>
 
-  <link rel="stylesheet" href="../css/ggalmazor.github.com.css">
-  <link rel="stylesheet" href="poolish_recipe_calculator.css">
-</head>
+                <div>
+                    <label for="poolish_hydration_percentage" class="f6 b db mb2">Hydration percentage <span class="normal black-60">(%)</span></label>
+                    <input id="poolish_hydration_percentage" name="poolish_hydration_percentage" type="number" value="125" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                </div>
 
-<body>
-<div class="container">
-  <p><a href="../">&larr; go back...</a></p>
+                <div>
+                    <label for="poolish_yeast_percentage" class="f6 b db mb2">Poolish yeast percentage <span class="normal black-60">(%)</span></label>
+                    <input id="poolish_yeast_percentage" name="poolish_yeast_percentage" type="number" value="0.1" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                </div>
+            </div>
+            <div class="w-100 w-33-ns pl3">
+                <h2 class="h2 mb4">Rest of dough</h2>
 
-  <h1>Poolish bread recipe calculator</h1>
+                <div>
+                    <label for="salt_percentage" class="f6 b db mb2">Salt percentage <span class="normal black-60">(%)</span></label>
+                    <input id="salt_percentage" name="salt_percentage" type="number" value="2.4" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                </div>
 
-  <p>This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
+                <div>
+                    <label for="rest_yeast_percentage" class="f6 b db mb2">Yeast percentage for the rest <span class="normal black-60">(%)</span></label>
+                    <input id="rest_yeast_percentage" name="rest_yeast_percentage" type="number" value="0.1" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <tabs>
-    <tab target-id="parameters">Parameters</tab>
-    <tab target-id="recipe">Recipe</tab>
-    <tab target-id="flour-calculator">Flour calculator</tab>
-  </tabs>
-
-  <section id="parameters">
-    <p>(edit values by <strong>double clicking</strong> on them and then press enter or click elsewhere)</p>
-
-    <h3>Recipe parameters</h3>
     <hr/>
-    <div class="row">
-      <div class="col-md-4">
-        <h4>Desired dough weight:
-          <value id="total_dough_weight" default-value="1000" units="g"></value>
-        </h4>
-        <h4>Desired dough hydration:
-          <value id="dough_hydration_percentage" default-value="80" units="%"></value>
-        </h4>
 
-      </div>
-      <div class="col-md-8">
-        <p><strong>Pro-tip</strong>: Use a high hydration setting (~80%) for whole-grain breads. The dough will be harder to handle but you'll get the best results.</p>
-      </div>
-    </div>
-    <h3>Poolish parameters</h3>
+    <section>
+        <h2 class="h2 mb0">Recipe</h2>
+        <div class="flex flex-column flex-row-ns">
+            <div class="w-100 w-33-ns pa3 mr2">
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Total flour:</dt>
+                    <dd class="dib ml0 gray" id="total_flour_weight">0 g</dd>
+                </dl>
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Total water:</dt>
+                    <dd class="dib ml0 gray" id="total_water_weight">0 g</dd>
+                </dl>
+            </div>
+            <div class="w-100 w-33-ns pa3 mr2">
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Poolish flour:</dt>
+                    <dd class="dib ml0 gray" id="poolish_flour_weight">0 g</dd>
+                </dl>
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Poolish water:</dt>
+                    <dd class="dib ml0 gray" id="poolish_water_weight">0 g</dd>
+                </dl>
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Poolish yeast:</dt>
+                    <dd class="dib ml0 gray" id="poolish_yeast_weight">0 g</dd>
+                </dl>
+            </div>
+            <div class="w-100 w-33-ns pa3 mr2">
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Rest of flour:</dt>
+                    <dd class="dib ml0 gray" id="rest_flour_weight">0 g</dd>
+                </dl>
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Rest of water:</dt>
+                    <dd class="dib ml0 gray" id="rest_water_weight">0 g</dd>
+                </dl>
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Rest of yeast:</dt>
+                    <dd class="dib ml0 gray" id="rest_yeast_weight">0 g</dd>
+                </dl>
+                <dl class="f6 lh-title mv2">
+                    <dt class="dib b">Salt:</dt>
+                    <dd class="dib ml0 gray" id="salt_weight">0 g</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
     <hr/>
-    <div class="row">
-      <div class="col-md-4">
-        <h4>Poolish percentage:
-          <value id="poolish_percentage" default-value="40" units="%"></value>
-        </h4>
-        <h4>Hydration percentage:
-          <value id="poolish_hydration_percentage" default-value="125" units="%"></value>
-        </h4>
-        <h4>Yeast percentage:
-          <value id="poolish_yeast_percentage" default-value="0.1" units="%"></value>
-        </h4>
-      </div>
-      <div class="col-md-8">
-        <p>A poolish is a wet (between 100% and 125% of hydration) preferment prepared at room temperature. You can adjust the starter yeast amount depending on the time you want (or have).</p>
-        <p>
-          <toggle target-id="poolish_info">more info</toggle>
-        </p>
-        <section id="poolish_info" class="hidden">
-          <p>Tips:</p>
-
-          <ul>
-            <li>Longer fermentation times will provide a deeper flavour but will also weaken the gluten in the flour.</li>
-            <li>You can double times by leaving it in the freezer.</li>
-          </ul>
-
-          <p>Use this table to decide the percentage of yeast to choose depending on the fermentation time you want:</p>
-
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Fermentation time</th>
-              <th>(fresh) yeast %</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>3 hours</td>
-              <td>1.5%</td>
-            </tr>
-            <tr>
-              <td>7 hours</td>
-              <td>0.7%</td>
-            </tr>
-            <tr>
-              <td>12 hours</td>
-              <td>0.1%</td>
-            </tr>
-            </tbody>
-          </table>
-        </section>
-      </div>
-    </div>
-    <h3>Parameters for the rest of the dough</h3>
-    <hr/>
-    <div class="row">
-      <div class="col-md-4">
-        <h4>Salt percentage:
-          <value id="salt_percentage" default-value="2.4" units="%"></value>
-        </h4>
-        <h4>Yeast percentage:
-          <value id="rest_yeast_percentage" default-value="0.1" units="%"></value>
-        </h4>
-      </div>
-      <div class="col-md-8">
-        <p>You can provide an extra kick of yeast in the dough</p>
-      </div>
-    </div>
-  </section>
-  <section class="hidden" id="recipe">
-    <p>(the values shown here are computed from the parameters of the tab "Parameters")</p>
-    <div class="row">
-      <div class="col-md-3">
-        <h4>Total flour:
-          <result id="total_flour_weight" units="g"></result>
-        </h4>
-        <h4>Total water:
-          <result id="total_water_weight" units="g"></result>
-        </h4>
-      </div>
-      <div class="col-md-3">
-        <h4>Poolish flour:
-          <result id="poolish_flour_weight" units="g"></result>
-        </h4>
-        <h4>Poolish water:
-          <result id="poolish_water_weight" units="g"></result>
-        </h4>
-        <h4>Poolish yeast:
-          <result id="poolish_yeast_weight" units="g"></result>
-        </h4>
-      </div>
-      <div class="col-md-3">
-        <h4>Rest of flour:
-          <result id="rest_flour_weight" units="g"></result>
-        </h4>
-        <h4>Rest of water:
-          <result id="rest_water_weight" units="g"></result>
-        </h4>
-        <h4>Rest of yeast:
-          <result id="rest_yeast_weight" units="g"></result>
-        </h4>
-        <h4>Salt:
-          <result id="salt_weight" units="g"></result>
-        </h4>
-      </div>
-    </div>
-    <p>Formulas:</p>
-    <ul>
-      <li>total flour = desired dough / (1 + hydration percentage)</li>
-      <li>total water = desired dough - total flour</li>
-      <li>poolish flour = total flour * poolish percentage</li>
-      <li>poolish water = poolish flour * poolish hydration percentage</li>
-      <li>poolish yeast = poolish flour * poolish yeast percentage</li>
-      <li>rest of flour = total flour - poolish flour</li>
-      <li>rest of water = total water - poolish water</li>
-      <li>rest of yeast = total flour - rest of dough yeast percentage</li>
-      <li>salt = total flour * salt percentage</li>
-    </ul>
-  </section>
-  <section class="hidden" id="flour-calculator">
-    <p>Maybe you're planning on mixing different flour types. Use this calculator to know how much of each type you need to mix.</p>
-
-    <table class="table">
-      <tr>
-        <td>Flour type 1</td>
-        <td>
-          <value id="flour_type_1_percentage" default-value="100" units="%"></value>
-        </td>
-        <td>
-          <result id="flour_type_1_total" units="g"></result>
-        </td>
-      </tr>
-      <tr>
-        <td>Flour type 2</td>
-        <td>
-          <value id="flour_type_2_percentage" default-value="0" units="%"></value>
-        </td>
-        <td>
-          <result id="flour_type_2_total" units="g"></result>
-        </td>
-      </tr>
-      <tr>
-        <td>Flour type 3</td>
-        <td>
-          <value id="flour_type_3_percentage" default-value="0" units="%"></value>
-        </td>
-        <td>
-          <result id="flour_type_3_total" units="g"></result>
-        </td>
-      </tr>
-      <tr>
-        <td>Flour type 4</td>
-        <td>
-          <value id="flour_type_4_percentage" default-value="0" units="%"></value>
-        </td>
-        <td>
-          <result id="flour_type_4_total" units="g"></result>
-        </td>
-      </tr>
-    </table>
-  </section>
-</div>
-
-<script src="components/tabs.js"></script>
-<script src="components/tab.js"></script>
-<script src="components/toggle.js"></script>
-<script src="components/result.js"></script>
-<script src="components/value.js"></script>
-<script src="view.js"></script>
-<script src="controller.js"></script>
+    <section>
+        <h2 class="h2 mb0">Formulae</h2>
+        <ul class="list pa0">
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">total flour = desired dough / (1 + hydration percentage)</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">total water = desired dough - total flour</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">poolish flour = total flour * poolish percentage</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">poolish water = poolish flour * poolish hydration percentage</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">poolish yeast = poolish flour * poolish yeast percentage</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">rest of flour = total flour - poolish flour</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">rest of water = total water - poolish water</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">rest of yeast = total flour - rest of dough yeast percentage</li>
+            <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">salt = total flour * salt percentage</li>
+        </ul>
+    </section>
+</section>
 
 <script>
-Ctrl.bootstrap();
+
+  function round(number, decimalPlaces = 0) {
+    const factor = Math.pow(10, decimalPlaces);
+    return Math.round(number * factor) / factor;
+  }
+
+  function computeRecipe(dom) {
+    const hydrationPercentage = dom.dough_hydration_percentage() / 100;
+    const totalFlourWeight = dom.total_dough_weight() / (1 + hydrationPercentage);
+    const totalWaterWeight = dom.total_dough_weight() - totalFlourWeight;
+    const poolishFlourWeight = totalFlourWeight * (dom.poolish_percentage() / 100);
+    const poolishWaterWeight = poolishFlourWeight * (dom.poolish_hydration_percentage() / 100);
+    const poolishYeastWeight = poolishFlourWeight * (dom.poolish_yeast_percentage() / 100);
+    const restFlourWeight = totalFlourWeight - poolishFlourWeight;
+    const restWaterWeight = totalWaterWeight - poolishWaterWeight;
+    const restYeastWeight = totalFlourWeight * (dom.rest_yeast_percentage() / 100);
+    const saltWeight = totalFlourWeight * (dom.salt_percentage() / 100);
+
+    dom.total_flour_weight(round(totalFlourWeight));
+    dom.total_water_weight(round(totalWaterWeight));
+    dom.poolish_flour_weight(round(poolishFlourWeight));
+    dom.poolish_water_weight(round(poolishWaterWeight));
+    dom.poolish_yeast_weight(round(poolishYeastWeight, 2));
+    dom.rest_flour_weight(round(restFlourWeight));
+    dom.rest_water_weight(round(restWaterWeight));
+    dom.rest_yeast_weight(round(restYeastWeight, 2));
+    dom.salt_weight(round(saltWeight, 2));
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const dom = {
+      total_dough_weight: () => parseInt(document.querySelector("#total_dough_weight").value),
+      dough_hydration_percentage: () => parseInt(document.querySelector('#dough_hydration_percentage').value),
+      poolish_percentage: () => parseInt(document.querySelector('#poolish_percentage').value),
+      poolish_hydration_percentage: () => parseInt(document.querySelector('#poolish_hydration_percentage').value),
+      poolish_yeast_percentage: () => parseFloat(document.querySelector('#poolish_yeast_percentage').value),
+      salt_percentage: () => parseFloat(document.querySelector('#salt_percentage').value),
+      rest_yeast_percentage: () => parseFloat(document.querySelector('#rest_yeast_percentage').value),
+      total_flour_weight: value => document.querySelector('#total_flour_weight').innerHTML = `${value}g`,
+      total_water_weight: value => document.querySelector('#total_water_weight').innerHTML = `${value}g`,
+      poolish_flour_weight: value => document.querySelector('#poolish_flour_weight').innerHTML = `${value}g`,
+      poolish_water_weight: value => document.querySelector('#poolish_water_weight').innerHTML = `${value}g`,
+      poolish_yeast_weight: value => document.querySelector('#poolish_yeast_weight').innerHTML = `${value}g`,
+      rest_flour_weight: value => document.querySelector('#rest_flour_weight').innerHTML = `${value}g`,
+      rest_water_weight: value => document.querySelector('#rest_water_weight').innerHTML = `${value}g`,
+      rest_yeast_weight: value => document.querySelector('#rest_yeast_weight').innerHTML = `${value}g`,
+      salt_weight: value => document.querySelector('#salt_weight').innerHTML = `${value}g`,
+    }
+    document.querySelectorAll("input").forEach(input => input.addEventListener("change", () => computeRecipe(dom)));
+    computeRecipe(dom);
+  });
 </script>
 </body>
 </html>
