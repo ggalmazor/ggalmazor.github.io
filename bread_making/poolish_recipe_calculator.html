@@ -4,61 +4,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
 <body class="w-100 avenir black-70 bg-white pa3">
-<nav class="center w-100 mw7 mb5 flex justify-between items-end f3">
-    <a href="/" class="dib ttu link dim black-70 fw6 pt3 pr3 pb3">ggalmazor.com</a>
-    <span class="dib w-100"></span>
-    <a href="https://twitter.com/ggalmazor" class="dib link dim black-70 pa3">@ggalmazor</a>
-    <a href="/about.html" class="dib ttu link dim black-70 pt3 pb3 pl3">about</a>
+<nav class="center w-100 mw7 mb5-ns flex flex-column flex-row-ns justify-between items-end">
+    <a href="/" class="dib ttu link dim black-70 fw6 pt3-ns pr3-ns pb3-ns">ggalmazor.com</a>
+    <span class="dib dn dib-ns w-100"></span>
+    <a href="https://twitter.com/ggalmazor" class="dib link dim black-70 pt3 pb3 pa3-ns">@ggalmazor</a>
+    <a href="/about.html" class="dib ttu link dim black-70 pt3-ns pb3-ns pl3-ns">about</a>
 </nav>
 <section class="w-100 mw7 center">
-    <h1 class="h1 mb4 f3">Poolish bread recipe calculator</h1>
+    <h1 class="f3">Poolish bread recipe calculator</h1>
 
-    <p class="f3">This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
+    <p class="f3 f4-ns lh-copy measure-wide">This is an ingredient calculator for breads with poolish preferment. All quantities are expressed in grams. All yeast quantities are assumed to be of dry yeast, unless noted otherwise. If you're using fresh yeast, you'll have to multiply it by 3.</p>
 
     <section>
-        <h2 class="h2 mb0">Parameters</h2>
+        <h2 class="f3 f4-ns">Parameters</h2>
         <div class="flex flex-column flex-row-ns">
-            <div class="w-100 w-33-ns pr3">
-                <h2 class="h2 mb4">Overall</h2>
-                <div>
-                    <label for="total_dough_weight" class="f6 b db mb2">Desired dough weight <span class="normal black-60">(grams)</span></label>
-                    <input id="total_dough_weight" name="total_dough_weight" type="number" value="1000" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+            <div class="w-100 w-33-ns pr3-ns">
+                <h3 class="f4 f5-ns mv3">Overall</h3>
+                <div class="mb3">
+                    <label for="total_dough_weight" class="f4 f5-ns db mb1">Desired dough weight <span class="normal black-60">(grams)</span></label>
+                    <input id="total_dough_weight" name="total_dough_weight" type="number" value="1000" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2 w-100 w4-ns"/>
                 </div>
 
                 <div>
-                    <label for="dough_hydration_percentage" class="f6 b db mb2">Desired dough hydration <span class="normal black-60">(%)</span></label>
-                    <input id="dough_hydration_percentage" name="dough_hydration_percentage" type="number" value="80" max="100" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
-                </div>
-            </div>
-            <div class="w-100 w-33-ns ph3">
-                <h2 class="h2 mb4">Poolish</h2>
-
-                <div>
-                    <label for="poolish_percentage" class="f6 b db mb2">Poolish percentage <span class="normal black-60">(%)</span></label>
-                    <input id="poolish_percentage" name="poolish_percentage" type="number" value="40" max="100" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
-                </div>
-
-                <div>
-                    <label for="poolish_hydration_percentage" class="f6 b db mb2">Hydration percentage <span class="normal black-60">(%)</span></label>
-                    <input id="poolish_hydration_percentage" name="poolish_hydration_percentage" type="number" value="125" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
-                </div>
-
-                <div>
-                    <label for="poolish_yeast_percentage" class="f6 b db mb2">Poolish yeast percentage <span class="normal black-60">(%)</span></label>
-                    <input id="poolish_yeast_percentage" name="poolish_yeast_percentage" type="number" value="0.1" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                    <label for="dough_hydration_percentage" class="f4 f5-ns db mb1">Desired dough hydration <span class="normal black-60">(%)</span></label>
+                    <input id="dough_hydration_percentage" name="dough_hydration_percentage" type="number" value="80" max="100" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2 w-100 w4-ns"/>
                 </div>
             </div>
-            <div class="w-100 w-33-ns pl3">
-                <h2 class="h2 mb4">Rest of dough</h2>
+            <div class="w-100 w-33-ns ph3-ns">
+                <h3 class="f4 f5-ns mv3">Poolish</h3>
 
-                <div>
-                    <label for="salt_percentage" class="f6 b db mb2">Salt percentage <span class="normal black-60">(%)</span></label>
-                    <input id="salt_percentage" name="salt_percentage" type="number" value="2.4" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                <div class="mb3">
+                    <label for="poolish_percentage" class="f4 f5-ns db mb1">Poolish percentage <span class="normal black-60">(%)</span></label>
+                    <input id="poolish_percentage" name="poolish_percentage" type="number" value="40" max="100" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2 w-100 w4-ns"/>
+                </div>
+
+                <div class="mb3">
+                    <label for="poolish_hydration_percentage" class="f4 f5-ns db mb1">Hydration percentage <span class="normal black-60">(%)</span></label>
+                    <input id="poolish_hydration_percentage" name="poolish_hydration_percentage" type="number" value="125" min="0" class="db border-box hover-black ba b--black-20 pa2 br2 mb2 w-100 w4-ns"/>
                 </div>
 
                 <div>
-                    <label for="rest_yeast_percentage" class="f6 b db mb2">Yeast percentage for the rest <span class="normal black-60">(%)</span></label>
-                    <input id="rest_yeast_percentage" name="rest_yeast_percentage" type="number" value="0.1" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2"/>
+                    <label for="poolish_yeast_percentage" class="f4 f5-ns db mb1">Poolish yeast percentage <span class="normal black-60">(%)</span></label>
+                    <input id="poolish_yeast_percentage" name="poolish_yeast_percentage" type="number" value="0.1" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2 w-100 w4-ns"/>
+                </div>
+            </div>
+            <div class="w-100 w-33-ns pl3-ns">
+                <h3 class="f4 f5-ns mv3">Rest of dough</h3>
+
+                <div class="mb3">
+                    <label for="salt_percentage" class="f4 f5-ns db mb1">Salt percentage <span class="normal black-60">(%)</span></label>
+                    <input id="salt_percentage" name="salt_percentage" type="number" value="2.4" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2 w-100 w4-ns"/>
+                </div>
+
+                <div class="mb3">
+                    <label for="rest_yeast_percentage" class="f4 f5-ns db mb1">Yeast percentage for the rest <span class="normal black-60">(%)</span></label>
+                    <input id="rest_yeast_percentage" name="rest_yeast_percentage" type="number" value="0.1" min="0" step="0.1" class="db border-box hover-black ba b--black-20 pa2 br2 mb2 w-100 w4-ns"/>
                 </div>
             </div>
         </div>
@@ -66,48 +66,48 @@
 
     <hr/>
 
-    <section>
-        <h2 class="h2 mb0">Recipe</h2>
-        <div class="flex flex-column flex-row-ns">
-            <div class="w-100 w-33-ns pa3 mr2">
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Total flour:</dt>
+    <section class="mb3">
+        <h2 class="f3 f4-ns">Recipe</h2>
+        <div class="flex flex-column flex-row-ns f4 f5-ns">
+            <div class="w-100 w-33-ns pr3-ns">
+                <dl class="lh-title mv2">
+                    <dt class="dib fw5">Total flour:</dt>
                     <dd class="dib ml0 gray" id="total_flour_weight">0 g</dd>
                 </dl>
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Total water:</dt>
+                <dl class="lh-title mt2 mb0 mv2-ns">
+                    <dt class="dib fw5">Total water:</dt>
                     <dd class="dib ml0 gray" id="total_water_weight">0 g</dd>
                 </dl>
             </div>
-            <div class="w-100 w-33-ns pa3 mr2">
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Poolish flour:</dt>
+            <div class="w-100 w-33-ns ph3-ns">
+                <dl class="lh-title mv2">
+                    <dt class="dib fw5">Poolish flour:</dt>
                     <dd class="dib ml0 gray" id="poolish_flour_weight">0 g</dd>
                 </dl>
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Poolish water:</dt>
+                <dl class="lh-title mv2">
+                    <dt class="dib fw5">Poolish water:</dt>
                     <dd class="dib ml0 gray" id="poolish_water_weight">0 g</dd>
                 </dl>
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Poolish yeast:</dt>
+                <dl class="lh-title mt2 mb0 mv2-ns">
+                    <dt class="dib fw5">Poolish yeast:</dt>
                     <dd class="dib ml0 gray" id="poolish_yeast_weight">0 g</dd>
                 </dl>
             </div>
-            <div class="w-100 w-33-ns pa3 mr2">
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Rest of flour:</dt>
+            <div class="w-100 w-33-ns pl3-ns">
+                <dl class="lh-title mv2">
+                    <dt class="dib fw5">Rest of flour:</dt>
                     <dd class="dib ml0 gray" id="rest_flour_weight">0 g</dd>
                 </dl>
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Rest of water:</dt>
+                <dl class="lh-title mv2">
+                    <dt class="dib fw5">Rest of water:</dt>
                     <dd class="dib ml0 gray" id="rest_water_weight">0 g</dd>
                 </dl>
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Rest of yeast:</dt>
+                <dl class="lh-title mv2">
+                    <dt class="dib fw5">Rest of yeast:</dt>
                     <dd class="dib ml0 gray" id="rest_yeast_weight">0 g</dd>
                 </dl>
-                <dl class="f6 lh-title mv2">
-                    <dt class="dib b">Salt:</dt>
+                <dl class="lh-title mt2 mb0 mv2-ns">
+                    <dt class="dib fw5">Salt:</dt>
                     <dd class="dib ml0 gray" id="salt_weight">0 g</dd>
                 </dl>
             </div>
@@ -115,8 +115,8 @@
     </section>
     <hr/>
     <section>
-        <h2 class="h2 mb0">Formulae</h2>
-        <ul class="list pa0">
+        <h2 class="f3 f4-ns mb0">Formulae</h2>
+        <ul class="list pa0 mt0">
             <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">total flour = desired dough / (1 + hydration percentage)</li>
             <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">total water = desired dough - total flour</li>
             <li class="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">poolish flour = total flour * poolish percentage</li>
