@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Largest Triangle downsampling library for Java 8</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<body class="w-100 avenir black-70 bg-white pa3 f3">
+<nav class="center w-100 mw7 mb5-ns flex flex-column flex-row-ns justify-between items-end">
+    <a href="/" class="dib ttu link dim black-70 fw6 pt3-ns pr3-ns pb3-ns">⬅&nbsp;back</a>
+    <span class="dib dn dib-ns w-100"></span>
+    <a href="https://twitter.com/ggalmazor" class="dib link dim black-70 pt3 pb3 pa3-ns">@ggalmazor</a>
+    <a href="https://ruby.social/@ggalmazor" class="dib link dim black-70 pt3 pb3 pa3-ns">@ggalmazor@ruby.social</a>
+    <a href="/about.html" class="dib ttu link dim black-70 pt3-ns pb3-ns pl3-ns">about</a>
+</nav>
+<section class="w-100 mw7 center">
+    <h2 class="f3 mb4">Largest Triangle downsampling library for Java 8</h2>
+    <p class="f4 lh-copy">In 2016, while working at <a href="https://buntplanet.com" class="link dim dark-blue fw5">BuntPlanet</a>, I had to implement a Java8 time-series downsampling algorithm for a big-data app about water service pipe networks.</p>
+
+    <p class="f4 lh-copy">I decided to open-source it at <a href="https://github.com/ggalmazor/lt_downsampling_java8" class="link dim dark-blue fw5">github.com/ggalmazor/lt_downsampling_java8</a></p>
+
+    <p class="f4 lh-copy">The app we were building had a very rich UI with lots of graphs. It could query and plot time series with a one-second resolution of entire water networks, perform comparisons between different moments in time, do data aggregations on the fly, etc.</p>
+
+    <p class="f4 lh-copy">We ended up realizing that:</p>
+    <ol class="f4">
+        <li class="pb2">Heavy data transfer from backend to frontend had a substantial negative impact on UX</li>
+        <li>It doesn't make sense fitting 800 data points (probably even half that) in an 800px wide graph anyway</li>
+    </ol>
+
+    <p class="f4 lh-copy">We also realized that it was challenging for off-the-shelf graphing libs to keep up with the data we were feeding them.</p>
+
+    <p class="f4 lh-copy">Therefore, we started trying to aggregate data as a way for reducing the volume we needed to handle but depending on the "zoom level" or granularity of the aggregation we used, <strong>we would lose important features</strong> of the underlying graph we wanted to show our customers: relevant peaks and valleys would randomly disappear.</p>
+
+    <p class="f4 lh-copy">After getting frustrated with this for some time, we started investigating this matter in more depth and we found some promising downsampling algorithms.</p>
+
+    <p class="f4 lh-copy">Of all of them, one stood out as a perfect candidate for what we were trying to achieve: <a href="../assets/SS_MSthesis.pdf" class="link dim dark-blue fw5"><strong>Largest Triangle, Three Buckets</strong></a> (LTTB from now on)</p>
+
+    <p class="f4 lh-copy"></p>
+
+    <p class="f4 lh-copy">After digesting the paper and studying some existing implementations we got a good understanding of how it worked.</p>
+
+    <p class="f4 lh-copy">The most important feature is that the algorithm's main goal is to reduce the number of data points while not losing any relevant visual features. 🤯</p>
+
+    <p class="f4 lh-copy">One of the things that I find most interesting is that LTTB was developed from similar algorithms applied in cartography to simplify map coastlines. This is why it makes a lot of sense that no relevant visual feature is lost in the downsampling process.</p>
+
+    <p class="f4 lh-copy">LTTB doesn't produce statistically representative series, meaning that properties such as max, min, avg, median, etc. won't be similar to the ones from the input series.</p>
+
+    <p class="f4 lh-copy">This wasn't an issue for us, so we decided to bring LTTB to our product.</p>
+
+    <p class="f4 lh-copy">Our product was implemented in Java8 and I was in all the rage about streams and parallel processing. We already had an ETLs platform in place that was ingesting big-data scale payloads with Spark on Java, so implementing LTTB in Java8 was a really nice project to take on for me.</p>
+
+    <p class="f4 lh-copy">This is how <a href="https://github.com/ggalmazor/lt_downsampling_java8" class="link dim dark-blue fw5">github.com/ggalmazor/lt_downsampling_java8</a>.</p>
+
+    <p class="f4 lh-copy">Time passed, the product evolved beyond LTTB, and I eventually forgot about it.</p>
+
+    <p class="f4 lh-copy">However, a couple of weeks ago, I got completely blown away: A GitHub user opened an issue and they even contributed with a fix for some scenario that my original implementation didn't handle correctly.</p>
+
+    <p class="f4 lh-copy">Amazing!</p>
+
+    <p class="f4 lh-copy">I didn't expect anyone would be using my library for real, even less they would be willing to contribute and make it better. It made my day :)</p>
+
+    <p class="f4 lh-copy">As a result, I took the chance to do a bit of housekeeping on the repo, review the code a bit, add some examples, and write this post to share some small pieces of my personal history. I have really good memories of the challenges I faced during that project.</p>
+
+    <p class="f4 lh-copy">I'm really grateful for the time I worked on that project with <a href="https://twitter.com/artolamola" class="link dim dark-blue fw5">@artolamola</a>, <a href="https://twitter.com/chewiebrian" class="link dim dark-blue fw5">@chewiebrian</a>, <a href="https://twitter.com/epplestun" class="link dim dark-blue fw5">@epplestun</a>, and other great colleagues. We all learned a lot. ❤️</p>
+</section>
+<footer class="mt5 w-100 mw7 center">
+    <p class="f6">
+        <span class="dib mr2">©2021 ggalmazor.com</span>
+        <span class="dib mr2">/</span>
+        <span class="dib">shamelessly <strike>copied from</strike> inspired by <a href="https://javisantana.com" class="link dim dark-blue fw5">javisantana.com</a></span>
+    </p>
+</footer>
+</body>
+</html>
