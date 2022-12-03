@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Legacy software and microtest TDD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<body class="w-100 avenir black-70 bg-white pa3 f3">
+<nav class="center w-100 mw7 mb5-ns flex flex-column flex-row-ns justify-between items-end">
+    <a href="/" class="dib ttu link dim black-70 fw6 pt3-ns pr3-ns pb3-ns">⬅&nbsp;back</a>
+    <span class="dib dn dib-ns w-100"></span>
+    <a href="https://twitter.com/ggalmazor" class="dib link dim black-70 pt3 pb3 pa3-ns">@ggalmazor</a>
+    <a href="https://ruby.social/@ggalmazor" class="dib link dim black-70 pt3 pb3 pa3-ns">@ggalmazor@ruby.social</a>
+    <a href="/about.html" class="dib ttu link dim black-70 pt3-ns pb3-ns pl3-ns">about</a>
+</nav>
+<section class="w-100 mw7 center">
+    <h2 class="f3 mb4">Legacy software and microtest TDD</h2>
+
+    <p class="f4 lh-copy"><a href="https://www.geepawhill.org/2020/07/24/microtest-tdd-is-gray-box/" class="link dim dark-blue fw5">Microtest TDD</a> is my favorite testing approach these days, and after reflecting on it, I think it's because I mainly deal with legacy software.</p>
+    <p class="f4 lh-copy">First, let's clear the air about legacy software: almost all software becomes legacy once it hits a production environment and customers start using it. Legacy software is providing valuable service to users _right now_ and ultimately brings money to the organization behind it.</p>
+    <p class="f4 lh-copy">I'm not here to judge any idiosyncratic and contextual reasons for putting a specific software version in front of users. What's relevant is that organizations make investments by doing that, and our role is to protect them.</p>
+    <p class="f4 lh-copy">We can protect an investment daily through many activities, such as ensuring that the software we produce can be easily removed, maintained, or evolved with the lowest possible cost. It often means that releasing a new version won't add any unknown or uncontrolled risks or that we have identified any deficiencies and have a strategy to deal with them.</p>
+    <p class="f4 lh-copy">However, I'm talking about software that's already there: we don't have control over how it was produced. We can only worry about what we do with it moving forward, and, in my experience, the first problem always is understanding the system's behavior.</p>
+
+    <p class="f4 lh-copy"><img src="/assets/legacy_software_microtest_mindmap.jpeg" class="w-100"/></p>
+    <p class="f4 lh-copy">My central insight about this is that a system's behavior is its specification. Running software beats documentation, oral tradition, code comments, and most tests. The exceptions are bugs (i.e., _unwanted behavior_) and tests that treat the system as a black box in some way.</p>
+    <p class="f4 lh-copy">Not all types of tests do a good job at it:</p>
+    <ul class="f4">
+        <li class="pb2">Tests about boundaries between software layers target _internal_ behavior, which is not our goal here: we want to describe the system's observable behavior, i.e., outputs and side-effects</li>
+        <li>Pure end-to-end and black-box tests are costly to produce, maintain and run, and they get outdated because they drive the system from volatile entry points.</li>
+    </ul>
+    <p class="f4 lh-copy">To be clear: you still need to write these 👆 tests. It's just that it probably won't be practical for you to describe your system's behavior with them.</p>
+    <p class="f4 lh-copy">Microtest TDD tests, however, do a great job at it. They foster an excellent balance between driving your system as a black box from your tests while simplifying some aspects of the entry point you choose to drive it with.</p>
+    <blockquote class="f4 lh-copy bl bw2 pl3 i pb0 mb0">So. Microtest TDD relies on the usage of a gray-box testing style. The tests&nbsp;_read_&nbsp;like they're black box, but they're&nbsp;_written_&nbsp;using white-box info, things only someone inside the code could know. We do this risky judgment-centric thing to ship more value faster.</blockquote>
+    <blockquote class="f6 lh-copy pl3 pt0 mt0 tr">-- <a href="https://www.geepawhill.org/2020/07/24/microtest-tdd-is-gray-box/" class="link dim dark-blue fw5">Microtest TDD</a></blockquote>
+    <p class="f4 lh-copy">I make my interpretation of microtest TDD in my daily work by combining it with another powerful concept: cohesive software components, which is a matter for another article, but the gist of it boils down to two statements:</p>
+    <ul class="f4">
+        <li class="pb2">Every business or _vertical_ section and every infrastructure or _horizontal_ section of the system should be represented by a cohesive component.</li>
+        <li>Every cohesive component has a public entry point - a public API - that the system uses to provide value to users, and no other part of the system can access the component's internal assets.</li>
+    </ul>
+    <p class="f4 lh-copy">For example, at DNSimple, where I work, we provide our users with commercial and Let's Encrypt ACME certificates, which translates to a `certificates` directory where we put all the business logic code related to our vertical component about certificates. Any part of the system that needs to deal with certificates can do so through (and only through) a facade at `Dnsimple::Certificates.facade`.</p>
+    <p class="f4 lh-copy">This design provides excellent entry points for our microtests because facades provide high level of abstraction business operations that make sense from the user's perspective. This is pivotal when trying to describe the system's observable behavior.</p>
+    <p class="f4 lh-copy">The "white box" part of microtests about the cohesive components I've described consists of knowing how to get the component's facade and set up the test scenario. The rest can be approached as a black box test by describing the behavior in test titles and asserting outputs and side effects.</p>
+    <p class="f4 lh-copy">A good description of the system's behavior at such a high-level incision point with comprehensive assertions enables us to defer design decisions and explore and evolve the SUT's internal structure safely and cheaply. </p>
+    <p class="f4 lh-copy">We get a lot in return from investing in working like this. It increases our confidence while extracting a component from the legacy part of the system, and coming back to introduce changes always feels more straightforward and smoother.</p>
+</section>
+<footer class="mt5 w-100 mw7 center">
+    <p class="f6">
+        <span class="dib mr2">©2021 ggalmazor.com</span>
+        <span class="dib mr2">/</span>
+        <span class="dib">shamelessly <strike>copied from</strike> inspired by <a href="https://javisantana.com" class="link dim dark-blue fw5">javisantana.com</a></span>
+    </p>
+</footer>
+</body>
+</html>
