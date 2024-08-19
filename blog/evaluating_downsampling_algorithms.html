@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Evaluating downsampling algorithms</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<body class="w-100 avenir black-70 bg-white pa3 f3">
+<nav class="center w-100 mw7 mb5-ns flex flex-column flex-row-ns justify-between items-end">
+    <a href="/" class="dib ttu link dim black-70 fw6 pt3-ns pr3-ns pb3-ns">⬅&nbsp;back</a>
+    <span class="dib dn dib-ns w-100"></span>
+    <a href="/about.html" class="dib ttu link dim black-70 pt3-ns pb3-ns pl3-ns">about</a>
+</nav>
+<section class="w-100 mw7 center">
+    <h2 class="f3 mb4">Evaluating downsampling algorithms</h2>
+
+    <p class="f4 lh-copy">I've been playing around with ChatGPT lately and I wondered if it could help me compare some time-series downsampling algorithms like <a href="largest_triangle_downsampling_lib.html" class="link dim black-70 fw5">the one I implemented for Java</a>.</p>
+
+    <p class="f4 lh-copy">When I asked ChatGPT about algorithms that would keep local extrema, it suggested Perceptually Important Points (PIP), Top-K Significant Extremes, Douglas-Peucker Algorithm (RDP), Extreme Point Sampling (EPS), and Local Extrema Retention (LER). It was funny to see that Largest-Triangle Three-Buckets wasn't in the list, but when I asked specifically about it, it was aware of it.</p>
+
+    <p class="f4 lh-copy">Despite asking, it wasn't fully clear to me how they compared to one each other because their description, pros and cons felt too similar, so I figured it might as well help me test them with some graphs.</p>
+
+    <p class="f4 lh-copy">I asked it to produce some Ruby scripts with their implementations, plotting code, and some code to generate a somewhat realistic synthetic time-series to test them.</p>
+
+    <p class="f4 lh-copy">The time-series to downsample is the same in all examples and it has 500 points, which will be downsampled to 50 points, or in the vicinity (for RDP). These are the results:</p>
+
+    <p class="f4 lh-copy"><img src="../assets/downsampling/eps.png"/></p>
+    <p class="f4 lh-copy"><img src="../assets/downsampling/ler.png"/></p>
+    <p class="f4 lh-copy"><img src="../assets/downsampling/lttb.png"/></p>
+    <p class="f4 lh-copy"><img src="../assets/downsampling/pip.png"/></p>
+    <p class="f4 lh-copy"><img src="../assets/downsampling/rdp_epsilon_3.png"/></p>
+    <p class="f4 lh-copy"><img src="../assets/downsampling/topk.png"/></p>
+
+    <p class="f4 lh-copy">I've created a <a href="https://gist.github.com/ggalmazor/758bba14035f323267d0c3b6970ff552" class="link dim black-70 fw5">gist</a> in GitHub with the sources for the Ruby script, and a copy of my chat with ChatGPT is at chat are <a href="https://chatgpt.com/share/795b3e53-4d6a-48d8-8dbe-473e112d50a3" class="link dim black-70 fw5">here</a></p>
+
+    <p class="f4 lh-copy"><strong>Some insights:</strong></p>
+
+    <p class="f4 lh-copy">An <code>epsilon</code> value of <code>3</code> would get me in the vicinity of the 50 points for the downsampled series in RDP, which is the target for the rest.</p>
+
+    <p class="f4 lh-copy">Funnily enough, LTTB is not faring too well compared to the others, especially when compared to PIP or RDP.</p>
+</section>
+<footer class="mt5 w-100 mw7 center">
+    <p class="f6">
+        <span class="dib mr2">©2021 ggalmazor.com</span>
+        <span class="dib mr2">/</span>
+        <span class="dib">shamelessly <strike>copied from</strike> inspired by <a href="https://javisantana.com" class="link dim dark-blue fw5">javisantana.com</a></span>
+    </p>
+</footer>
+</body>
+</html>
