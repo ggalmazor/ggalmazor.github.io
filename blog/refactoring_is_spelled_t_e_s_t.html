@@ -12,9 +12,18 @@
 <section class="w-100 mw7 center">
     <h2 class="f3 mb4">Refactoring is spelled T E S T</h2>
 
-    <p class="f4 lh-copy"><img src="../assets/image.webp"/></p>
+    <p class="f4 lh-copy"><img alt="Refactoring is spelled T E S T" src="../assets/image.webp"/></p>
 
-    <p class="f4 lh-copy">This is what Martin Fowler and Kent Beck say about refactoring:</p>
+    <p class="f4 lh-copy">Refactoring is an essential practice in software development, yet I often find that the role
+        of testing doesn’t receive the attention it deserves. While Martin Fowler and Kent Beck stress the importance of
+        small, behavior-preserving transformations for safe refactoring, the true safety net lies in thorough testing.
+        Without it, even the most well-intentioned refactor can introduce risks that undermine the stability of a
+        system.</p>
+
+    <p class="f4 lh-copy">Martin Fowler and Kent Beck are leading experts in software development with deep experience
+        in practices like agile, XP, and test-driven development. Their approach to making small, incremental
+        improvements without changing the behavior has become a foundational principle for maintaining and evolving
+        codebases efficiently and safely.</p>
 
     <blockquote class="mb0 pb0 ml0 mt0 pl4 black-70 bl bw2 b--black-70">
         <p class="f4 mb0 pb0 lh-copy mt0 i">Refactoring is a controlled technique for improving the design of an
@@ -29,11 +38,6 @@
             href="https://martinfowler.com/books/refactoring.html" class="link dim black-90 fw5">martinfowler.com/books/refactoring.html</a>)
     </p>
 
-    <p class="f4 lh-copy">Martin Fowler and Kent Beck are leading experts in software development with deep experience
-        in practices like agile, XP, and test-driven development. Their approach to making small, incremental
-        improvements without changing the behavior has become a foundational principle for maintaining and evolving
-        codebases efficiently and safely.</p>
-
     <p class="f4 lh-copy">Based on that and my own experience working with legacy codebases, this is my take on
         refactoring:</p>
 
@@ -45,12 +49,14 @@
         </li>
     </ul>
 
-    <p class="f4 lh-copy">However, the most challenging aspect of the refactoring process is that <span class="b">it must not introduce changes to the system's behavior</span>.
-    </p>
+    <p class="f4 lh-copy">However, the most challenging aspect of the refactoring process is that <span class="b">it
+        must not change the system's behavior</span> (i.e. break it).</p>
 
     <p class="f4 lh-copy">Assuming that we know what the system's behavior should be, we can change the code and then
-        test the system manually. However, I will rule out this option immediately because manual testing doesn't work
-        at scale and is problematic at best.</p>
+        test the system manually but humans are error-prone, and our biases and external factors make of us poor judges
+        of our own work. On top of that, manual testing doesn't work at scale. The bottom line is that, as a software
+        developer, I don't want stakeholders to take my word on not breaking anything. I want a safety net that
+        guarantees it, and can be audited by my fellow team mates.</p>
 
     <p class="f4 lh-copy">We can agree that automated testing is the way to go. Tests play a paramount role in
         refactorings because they're the tool to guarantee we're not introducing any change in the system's behavior
@@ -131,8 +137,7 @@
     <p class="f6">
         <span class="dib mr2">©2021 ggalmazor.com</span>
         <span class="dib mr2">/</span>
-        <span class="dib">shamelessly <strike>copied from</strike> inspired by <a href="https://javisantana.com"
-                                                                                  class="link dim dark-blue fw5">javisantana.com</a></span>
+        <span class="dib">inspired by <a href="https://javisantana.com" class="link dim dark-blue fw5">javisantana.com</a></span>
     </p>
 </footer>
 </body>
