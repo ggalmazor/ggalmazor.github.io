@@ -3,6 +3,36 @@
 <title>Refactoring is spelled T E S T</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<style>
+    [data-tooltip] {
+        position: relative;
+        border-bottom: 1px dashed #000;
+        cursor: help
+    }
+
+    [data-tooltip]::after {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        content: attr(data-tooltip);
+        left: calc(100% + .8em);
+        top: calc(-30%);
+        border-radius: 3px;
+        background-color: black;
+        color: white;
+        z-index: 10;
+        padding: 8px;
+        width: 300px;
+        transform: translateX(-20px);
+        transition: all 150ms cubic-bezier(.25, .8, .25, 1);
+    }
+
+    [data-tooltip]:hover::after {
+        opacity: 1;
+        transform: translateX(0);
+        transition-duration: 300ms;
+    }
+</style>
 <body class="w-100 avenir black-70 bg-white pa3 f3">
 <nav class="center w-100 mw7 mb5-ns flex flex-column flex-row-ns justify-between items-end">
     <a href="/" class="dib ttu link dim black-70 fw6 pt3-ns pr3-ns pb3-ns">⬅&nbsp;back</a>
@@ -101,8 +131,9 @@
         changes we make preserve the functionality of the system.</p>
 
     <p class="f4 lh-copy">Luckily, the stimuli, outputs, and side effects fall directly into common test concerns. In a
-        classic AAA (arrange, action, assert) test structure, stimuli determine the test's action that will drive our
-        SUT, and outputs and side effects are what we need to assert.</p>
+        classic <span data-tooltip="Arrange, Action, Assert">AAA</span> test structure, stimuli determine the test's
+        action that will drive our
+        <span data-tooltip="System Under Test">SUT</span>, and outputs and side effects are what we need to assert.</p>
 
     <p class="f4 lh-copy">This approach applies to any abstraction level we want. It can be as small as a single
         function or as big as the whole system. The challenging part is determining what our SUT should be and,
@@ -119,6 +150,9 @@
         or depend upon the SUT's implementation details. We need those tests in green during the whole refactoring
         exercise.</p>
 
+    <p class="f4 lh-copy">One testing approach that ticks all the checkboxes is called Grey-box testing. I already wrote
+        about it in <a href="legacy_software_and_grey_box_testing.html" class="link dim black-70 fw5">another blog
+            post</a>.</p>
 
     <p class="f4 lh-copy">Now that we understand the system's behavior and can automatically verify it using our tests,
         the fun part begins.</p>
@@ -137,7 +171,8 @@
     <p class="f6">
         <span class="dib mr2">©2021 ggalmazor.com</span>
         <span class="dib mr2">/</span>
-        <span class="dib">inspired by <a href="https://javisantana.com" class="link dim dark-blue fw5">javisantana.com</a></span>
+        <span class="dib">inspired by <a href="https://javisantana.com"
+                                         class="link dim dark-blue fw5">javisantana.com</a></span>
     </p>
 </footer>
 </body>

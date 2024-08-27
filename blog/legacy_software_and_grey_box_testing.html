@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Legacy software and Grey-box testing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<style>
+    [data-tooltip] {
+        position: relative;
+        border-bottom: 1px dashed #000;
+        cursor: help
+    }
+
+    [data-tooltip]::after {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        content: attr(data-tooltip);
+        left: calc(100% + .8em);
+        top: calc(-30%);
+        border-radius: 3px;
+        background-color: black;
+        color: white;
+        z-index: 10;
+        padding: 8px;
+        width: 300px;
+        transform: translateX(-20px);
+        transition: all 150ms cubic-bezier(.25, .8, .25, 1);
+    }
+
+    [data-tooltip]:hover::after {
+        opacity: 1;
+        transform: translateX(0);
+        transition-duration: 300ms;
+    }
+</style>
+<body class="w-100 avenir black-70 bg-white pa3 f3">
+<nav class="center w-100 mw7 mb5-ns flex flex-column flex-row-ns justify-between items-end">
+    <a href="/" class="dib ttu link dim black-70 fw6 pt3-ns pr3-ns pb3-ns">⬅&nbsp;back</a>
+    <span class="dib dn dib-ns w-100"></span>
+    <a href="/about.html" class="dib ttu link dim black-70 pt3-ns pb3-ns pl3-ns">about</a>
+</nav>
+<section class="w-100 mw7 center">
+    <h2 class="f3 mb4">Legacy software and Grey-box testing</h2>
+
+    <p class="f4 lh-copy">After years of experience, I've come to understand that the tests I write can vary
+        significantly in size and scope, which contrasts with the principles of the Microtest TDD approach. However, my
+        primary focus when writing tests is not on their size but on thoroughly describing the <span
+                data-tooltip="System Under Test">SUT</span>'s behavior, including its outputs and side-effects. While
+        small tests are beneficial, reducing their size isn't my primary objective.</p>
+
+    <p class="f4 lh-copy">Concentrating on behavior ensures that my tests remain decoupled from the implementation
+        details. This allows me to refine the code's design without fear of inadvertently altering or breaking the
+        system's behavior. Yet, my tests do contain some details about the system's inner workings, especially when it
+        comes to verifying side effects. For example, my tests may involve setting up databases, verifying third-party
+        service requests, or checking local file changes. These aspects place my tests at the boundary where internal
+        system details meet external interactions.</p>
+
+    <p class="f4 lh-copy">This approach aligns closely with the principles of <span class="b">Grey-box testing</span>.</p>
+
+    <p class="f4 lh-copy">As a concept, Grey-box testing doesn't have a singular origin or inventor. It evolved
+        organically within the software testing community as practitioners began to see the value in combining black-box
+        and white-box testing—merging external and internal perspectives for a more comprehensive testing approach.</p>
+
+    <p class="f4 lh-copy">Upon reviewing my previous blog post about <a href="legacy_software_and_microtest_tdd.html"
+                                                                        class="link dim black-70 fw5">Legacy Software
+        and Grey-box Microtest TDD</a>, I realized that my writing is centered on the Grey-box aspect of testing. This
+        post clarifies that distinction.</p>
+</section>
+<footer class="mt5 w-100 mw7 center">
+    <p class="f6">
+        <span class="dib mr2">©2021 ggalmazor.com</span>
+        <span class="dib mr2">/</span>
+        <span class="dib">shamelessly <strike>copied from</strike> inspired by <a href="https://javisantana.com"
+                                                                                  class="link dim dark-blue fw5">javisantana.com</a></span>
+    </p>
+</footer>
+</body>
+</html>
