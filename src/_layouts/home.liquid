@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="{{ site.locale }}">
+  <head>
+    {% render "head", metadata: site.metadata, title: data.title %}
+  </head>
+  <body class="home">
+    {% render "home_navbar", metadata: site.metadata, resource: resource %}
+
+    <section class="w-100 mw7 center intro">
+      <p>Hi! I'm Guillermo Gutierrez and I'm a software developer working at <a href="https://dnsimple.com">DNSimple</a>.</p>
+
+      <ul>
+        <li>Drop me a line at <span class="false-link">guille@ggalmazor.com</span></li>
+        <li>More information about me at my <a href="https://www.linkedin.com/in/ggalmazor">LinkedIn profile</a></li>
+      </ul>
+    </section>
+
+    <main class="w-100 mw7 center">
+      {{ content }}
+    </main>
+
+    {% render "footer", metadata: site.metadata %}
+  </body>
+</html>
+
