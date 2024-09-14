@@ -5,8 +5,6 @@ date:   2024-08-26 12:00:00 +0200
 permalink: /blog/refactoring_is_spelled_t_e_s_t.html
 ---
 
-## Refactoring is spelled T E S T
-
 ![Refactoring is spelled T E S T](/assets/image.webp)
 
 Refactoring is an essential practice in software development, yet I often find that the role of testing doesn't receive the attention it deserves. While Martin Fowler and Kent Beck stress the importance of small, behavior-preserving transformations for safe refactoring, the true safety net lies in thorough testing. Without it, even the most well-intentioned refactor can introduce risks that undermine the stability of a system.
@@ -36,7 +34,7 @@ As Fowler and Beck highlight the importance of small, incremental changes, it's 
 
 In my experience, however, tests are often more about implementation details than the system's behavior, which puts us in a tough spot when addressing complicated or risky refactorings. We need to understand the system's behavior and then write tests that effectively describe and verify this behavior.
 
-### System's behavior
+## System's behavior
 
 A system's behavior comprises its observable actions (side-effects) and responses (outputs) in reaction to stimuli. Let's drill down into the keywords in this definition:
 
@@ -50,7 +48,7 @@ Sometimes, outputs can be difficult to tell apart from side effects. For example
 
 We have established that automated testing is the way to go, and now we have a basic understanding of what to look for when discussing "behavior". Let's move on to the tests.
 
-### Testing the behavior
+## Testing the behavior
 
 Refactoring without a test in place is not refactoring - it's just code modification. To truly refactor, we must first establish a test harness that verifies the existing behavior. This ensures that any changes we make preserve the functionality of the system.
 
@@ -68,7 +66,7 @@ One testing approach that ticks all the checkboxes is called **Grey-box testing*
 
 Now that we understand the system's behavior and can automatically verify it using our tests, the fun part begins.
 
-### Refactoring (conclusions)
+## Refactoring (conclusions)
 
 Refactoring is safe when we have automated tests that guarantee we won't change the system's behavior. By definition, we can't break anything as long as those tests are green, and we can safely explore any idea, take any path.
 

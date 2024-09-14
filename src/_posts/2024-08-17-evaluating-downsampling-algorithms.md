@@ -5,8 +5,6 @@ date:   2024-08-17 12:00:00 +0200
 permalink: /blog/evaluating_downsampling_algorithms.html
 ---
 
-## Evaluating downsampling algorithms
-
 I've been playing around with ChatGPT lately and I wondered if it could help me compare some time-series downsampling algorithms like [the one I implemented for Java]({% link _posts/2020-01-01-largest-triangle-downsampling-lib.md %}).
 
 When I asked ChatGPT about algorithms that would keep local extrema, it suggested Perceptually Important Points (PIP), Top-K Significant Extremes, Douglas-Peucker Algorithm (RDP), Extreme Point Sampling (EPS), and Local Extrema Retention (LER). It was funny to see that Largest-Triangle Three-Buckets wasn't in the list, but when I asked specifically about it, it was aware of it.
@@ -26,7 +24,7 @@ The time-series to downsample is the same in all examples and it has 500 points,
 
 I've created a [gist](https://gist.github.com/ggalmazor/758bba14035f323267d0c3b6970ff552) in GitHub with the sources for the Ruby script, and a copy of my chat with ChatGPT is available [here](https://chatgpt.com/share/795b3e53-4d6a-48d8-8dbe-473e112d50a3)
 
-### Insights
+## Insights
 
 An `epsilon` value of `3` would get me in the vicinity of the 50 points for the downsampled series in RDP, which is the target for the rest.
 

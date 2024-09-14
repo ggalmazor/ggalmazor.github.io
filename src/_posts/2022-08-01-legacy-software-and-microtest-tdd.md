@@ -5,8 +5,6 @@ date:   2022-08-01 12:00:00 +0200
 permalink: /blog/legacy_software_and_microtest_tdd.html 
 ---
 
-## Legacy software and Grey-box Microtest TDD
-
 <small>*-- Hey! 👋 I've written some new insights about this topic at [a more recent blog post]({% link _posts/2024-08-24-legacy-software-and-grey-box-testing.md %})*</small>
 
 [Grey-box Microtest TDD](https://www.geepawhill.org/2020/07/24/microtest-tdd-is-gray-box/) is my favorite testing approach these days, and after reflecting on it, I think it's because I mainly deal with legacy software. 

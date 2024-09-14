@@ -6,6 +6,8 @@
 <body class="post">
 {% render "post_navbar", metadata: site.metadata, resource: resource %}
 
+{% render "post_title" data: resource.data %}
+
 <main class="w-100 mw7 center">
     {{ content }}
 </main>

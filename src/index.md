@@ -10,7 +10,7 @@ layout: home
 
 {% for year in years %}
 
-## {{ year }}
+# {{ year }}
 
 {% assign posts = posts_by_year | where: "name", year | first %}
 {% for post in posts.items %}
