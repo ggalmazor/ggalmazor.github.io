@@ -72,6 +72,13 @@ h3 {
   border-bottom-width: 1px;
 }
 
+ol, ul {
+  li {
+    @extend .pb2;
+    line-height: 1.5em;
+  }
+}
+
 body {
   @extend .w-100;
   @extend .avenir;
@@ -187,12 +194,6 @@ body {
     em {
       @extend .i;
       @extend .fw5;
-    }
-
-    ol, ul {
-      li {
-        @extend .pb2;
-      }
     }
 
     blockquote {
