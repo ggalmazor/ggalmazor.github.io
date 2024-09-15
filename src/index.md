@@ -19,7 +19,7 @@ layout: home
 
 {% assign links = links_by_year | where: "name", year | first %}
 {% for link in links.items %}
-[{{ link.title }}]({{link.url}})
+*{{ link.type }}* - [{{ link.title }}]({{link.url}})
 {% endfor %}
 
 {% endfor %}
