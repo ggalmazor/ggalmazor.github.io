@@ -1,0 +1,18 @@
+body.home {
+  a {
+    @extend .link;
+    @extend .dim;
+    @extend .fw5;
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  .false-link {
+    @extend .link;
+    @extend .dim;
+    @extend .fw5;
+    color: currentColor;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

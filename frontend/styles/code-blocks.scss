@@ -1,0 +1,27 @@
+@import "./syntax-highlighting.scss";
+
+:not(pre) code {
+  @extend .dib;
+  @extend .f5;
+  @extend .black-80;
+  @extend .fw1;
+  @extend .bg-light-gray;
+  @extend .br2;
+  @extend .ph1;
+  @extend .pv0;
+}
+
+figure.highlight {
+  @extend .mh0;
+  @extend .w-100;
+
+  pre {
+    code {
+      @extend .db;
+      @extend .w-100;
+      @extend .pa3;
+      @extend .overflow-scroll;
+      @extend .br2;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+body.post {
+  post-title {
+    @extend .db;
+
+    h1 {
+      @extend .mb0;
+    }
+
+    h5 {
+      @extend .mt0;
+      @extend .mb5;
+      @extend .fw3;
+      @extend .f6;
+    }
+  }
+
+  main {
+    @extend .mb5;
+
+    a {
+      @extend .link;
+      @extend .dim;
+      @extend .dark-blue;
+      @extend .fw4;
+      @extend .underline-dashed;
+    }
+
+    .false-link {
+      @extend .link;
+      @extend .dim;
+      @extend .dark-blue;
+      @extend .fw4;
+      @extend .underline-dashed;
+      cursor: pointer;
+    }
+
+    small {
+      @extend .f5;
+    }
+
+    strong {
+      @extend .b;
+      @extend .fw6;
+    }
+
+    em {
+      @extend .i;
+      @extend .fw5;
+    }
+
+    blockquote {
+      @extend .mb0;
+      @extend .pb0;
+      @extend .ml0;
+      @extend .mt0;
+      @extend .pl4;
+      @extend .black-70;
+      @extend .bl;
+      @extend .bw2;
+      @extend .b--black-70;
+
+      p {
+        @extend .mb0;
+        @extend .pb0;
+        @extend .mt0;
+        @extend .i;
+      }
+    }
+
+    footnote {
+      @extend p;
+      @extend .f5;
+      @extend .mt0;
+      @extend .pt1;
+      @extend .pl4;
+    }
+  }
+}
