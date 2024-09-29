@@ -61,7 +61,7 @@ Fetched 500 deployments for main:
 ... fetching deployment statuses .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... Done
 - 182 old successful deployments: avg 181 secs, min/max: 127/664 secs
 - 301 new successful deployments: avg 206 secs, min/max: 55/684 secs
-  {% endhighlight %}
+{% endhighlight %}
 
 Check the code at [ggalmazor/gh-deployment-stats](https://github.com/ggalmazor/gh-deployment-stats). There are several improvements I plan to implement, but for now, it's good enough. You can install it using the command:
 

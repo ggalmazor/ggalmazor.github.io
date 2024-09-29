@@ -20,8 +20,10 @@ figure.highlight {
       @extend .db;
       @extend .w-100;
       @extend .pa3;
-      @extend .overflow-scroll;
+      @extend .overflow-auto;
       @extend .br2;
+      line-height: 1.5;
+        white-space: pre-wrap;
     }
   }
 }
