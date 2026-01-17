@@ -3,6 +3,7 @@ layout: post
 title:  "Understanding technical debt"
 date:   2024-09-02 12:00:00 +0200
 permalink: /blog/understanding_technical_debt.html
+author: Guillermo Gutierrez
 ---
 
 In our latest DNSimple team retrospective, a shared concern emerged: technical debt. Recognizing its growing impact on our work, we've decided to address it together. This blog post aims to help us understand technical debt and its implications for our projects. By viewing technical debt as a deferred investment in our codebase, I'll explore how it affects our ability to deliver value and how we can manage it strategically moving forward.
@@ -96,5 +97,3 @@ Over time, teams should shift focus to paying down debt in areas that could hind
 Technical debt is an inevitable part of software development, but when viewed as a deferred investment, it becomes a tool for strategic growth rather than a burden. By aligning technical debt management with the product roadmap, focusing on small, manageable delivery cycles, and prioritizing debt repayment based on business goals, companies can balance the need for immediate delivery with long-term sustainability. This approach ensures that software products remain innovative and resilient, ready to meet the challenges of a dynamic market.
 
 For developers and non-technical managers alike, understanding technical debt as a strategic, deferred investment is crucial for building software that meets today's needs and is prepared for tomorrow's opportunities.
-
-I also want to take this chance to recommend my friend and colleague Luis Artola's [book on Software Economics](https://leanpub.com/software-economics), where he describes an economic mental model about software development.

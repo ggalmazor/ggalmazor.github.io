@@ -3,6 +3,7 @@ layout: post
 title:  "Largest Triangle downsampling library for Java 8"
 date:   2020-01-01 12:00:00 +0200
 permalink: /blog/largest_triangle_downsampling_lib.html
+author: Guillermo Gutierrez
 ---
 
 In 2016, while working at [BuntPlanet](https://buntplanet.com" class="link dim dark-blue fw5), I had to implement a Java8 time-series downsampling algorithm for a big-data app about water service pipe networks.

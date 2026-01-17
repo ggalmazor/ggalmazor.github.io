@@ -2,6 +2,7 @@
 layout: post
 title:  "Adapting testing practices to OLAP systems"
 date:   2024-09-16 00:00:00 +0000
+author: Guillermo Gutierrez
 ---
 
 In most software systems, the business logic resides within the application code, and the database serves as a repository for persisting and retrieving objects. However, <span data-tooltip="Online Analytical Processing">OLAP</span> systems often shift part of the business logic into SQL queries, particularly in Big Data and Business Intelligence applications. This introduces unique challenges in testing and verifying our system's behavior.

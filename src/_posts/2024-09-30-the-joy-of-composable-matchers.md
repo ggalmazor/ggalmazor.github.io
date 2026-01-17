@@ -2,6 +2,7 @@
 layout: post
 title: "The joy of composable matchers"
 date: 2024-09-30 00:00:00 +0
+author: Guillermo Gutierrez
 ---
 
 Over the years, I've come to realize that great tests are more than just a way to check if a system works. They're a form of **documentation** that helps developers understand not just the system's internals but also what users expect and how the application interacts with its infrastructure. Expressive tests are invaluable - they cut through the noise, **hide unnecessary details**, and bring key behaviors into sharp focus. The result? Tests that are easier to read, maintain, and evolve over time.

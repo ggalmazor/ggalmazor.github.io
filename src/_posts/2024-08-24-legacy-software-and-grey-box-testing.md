@@ -3,6 +3,7 @@ layout: post
 title:  "Legacy software and Grey-box testing"
 date:   2024-08-24 12:00:00 +0200
 permalink: /blog/legacy_software_and_grey_box_testing.html
+author: Guillermo Gutierrez
 ---
 
 After years of experience, I've come to understand that the tests I write can vary significantly in size and scope, which contrasts with the principles of the Microtest TDD approach. However, my primary focus when writing tests is not on their size but on thoroughly describing the <span data-tooltip="System Under Test">SUT</span>'s behavior, including its outputs and side-effects. While small tests are beneficial, reducing their size isn't my primary objective.

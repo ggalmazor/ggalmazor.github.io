@@ -3,6 +3,7 @@ layout: post
 title:  "Continuous learning and the antifragile mindset"
 date:   2024-09-09 12:00:00 +0200
 permalink: /blog/continuous_learning_and_the_antifragile_mindset.html
+author: Guillermo Gutierrez
 ---
 
 The software ecosystem evolves at an incredible pace. New frameworks, languages, and tools emerge daily, making it challenging to stay current. For many of us in tech, this creates a sense of constant pressure - an unshakable feeling that no matter how much we learn, we might miss out on something crucial. The fear of becoming obsolete or falling behind is real. And with this comes frustration: the overwhelming sense that despite our best efforts, we're not keeping up with the speed of innovation.

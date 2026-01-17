@@ -2,6 +2,7 @@
 layout: post
 title: "GitHub Deployment stats"
 date: 2024-09-23 00:00:00 +0
+author: Guillermo Gutierrez
 ---
 
 GitHub provides robust support for Deployments via its API, but when it comes to understanding the performance and lifecycle of those Deployments, things can get tricky. While the GitHub CLI is incredibly useful for many tasks, it currently lacks native support for querying Deployments.

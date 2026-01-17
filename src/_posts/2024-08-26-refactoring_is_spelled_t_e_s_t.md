@@ -3,6 +3,7 @@ layout: post
 title:  "Refactoring is spelled T E S T"
 date:   2024-08-26 12:00:00 +0200
 permalink: /blog/refactoring_is_spelled_t_e_s_t.html
+author: Guillermo Gutierrez
 ---
 
 ![Refactoring is spelled T E S T](/assets/image.webp)

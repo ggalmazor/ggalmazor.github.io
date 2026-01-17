@@ -3,6 +3,7 @@ layout: post
 title:  "Evaluating downsampling algorithms"
 date:   2024-08-17 12:00:00 +0200
 permalink: /blog/evaluating_downsampling_algorithms.html
+author: Guillermo Gutierrez
 ---
 
 I've been playing around with ChatGPT lately and I wondered if it could help me compare some time-series downsampling algorithms like [the one I implemented for Java]({% link _posts/2020-01-01-largest-triangle-downsampling-lib.md %}).
