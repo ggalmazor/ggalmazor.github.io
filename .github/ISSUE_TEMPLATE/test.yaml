@@ -1,0 +1,46 @@
+name: 🐞 Bug
+description: File a bug/issue
+title: "[BUG] <title>"
+labels: ["Bug", "Needs Triage"]
+body:
+- type: markdown
+  attributes:
+    value: "## Thank you for contributing to our project!"
+- type: markdown
+  attributes:
+    value: |
+      Thanks for taking the time to fill out this bug report.
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: Please search to see if an issue already exists for the bug you encountered.
+    options:
+    - label: I have searched the existing issues
+      required: true
+- type: textarea
+  attributes:
+    label: Current Behavior
+    description: A concise description of what you're experiencing.
+  validations:
+    required: false
+- type: checkboxes
+  id: operating-systems
+  attributes:
+    label: Which operating systems have you used?
+    description: You may select more than one.
+    options:
+      - label: macOS
+      - label: Windows
+      - label: Linux
+- type: dropdown
+  id: download
+  attributes:
+    label: How did you download the software?
+    options:
+      - Built from source
+      - Homebrew
+      - MacPorts
+      - apt-get
+    default: 0
+  validations:
+    required: true
