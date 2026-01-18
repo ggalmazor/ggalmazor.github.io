@@ -12,4 +12,11 @@
 
 <link rel="stylesheet" href="{% asset_path css %}"/>
 <script src="{% asset_path js %}" defer></script>
+
+{% if bridgetown.environment == "production" %}
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f44ce576b3847d582568233c5898bb7"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+{% endif %}
+
 {% live_reload_dev_js %}
