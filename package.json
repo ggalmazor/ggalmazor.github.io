@@ -9,7 +9,7 @@
   "devDependencies": {
     "cssnano": "^7.0.6",
     "esbuild": "^0.25.0",
-    "glob": "^10.5.0",
+    "glob": "^13.0.0",
     "http-server": "^14.0.0",
     "postcss": "^8.4.29",
     "postcss-color-mod-function": "^3.0.3",
