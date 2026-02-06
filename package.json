@@ -19,7 +19,7 @@
     "postcss-mixins": "^11.0.1",
     "postcss-preset-env": "^9.1.2",
     "read-cache": "^1.0.0",
-    "sass": "^1.97.2",
+    "sass": "^1.97.3",
     "tachyons-sass": "^4.9.5"
   }
 }
