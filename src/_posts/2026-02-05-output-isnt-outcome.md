@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Theory of Constraints for product development and engineering"
+title: "Output Isn't Outcome: Constraint Thinking for Product and Engineering"
 date: 2026-02-05 00:00:00 +0
 author: Guillermo Gutierrez
 ---
