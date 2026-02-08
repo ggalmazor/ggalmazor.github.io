@@ -44,7 +44,7 @@ body.page main {
   }
 
   blockquote {
-    @extend .mb0;
+    margin-bottom: 1em;
     @extend .pb0;
     @extend .ml0;
     @extend .mt0;
